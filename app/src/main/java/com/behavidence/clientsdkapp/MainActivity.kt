@@ -1,6 +1,7 @@
 package com.behavidence.clientsdkapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,7 +11,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.behavidence.android.sdk_internal.data.repository.Auth.AuthClient
+import com.behavidence.android.sdk_internal.data.model.Participation.ParticipationResponse.ParticipationResponse
+import com.behavidence.android.sdk_internal.data.repository.BehavidenceResponseCallback
+import com.behavidence.android.sdk_internal.data.repository.Participation.ParticipationClient
 import com.behavidence.clientsdkapp.ui.theme.CientSDKAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -28,7 +31,26 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        AuthClient(this)
+        val participationClient= ParticipationClient(this)
+        participationClient.getParticipation(object: BehavidenceResponseCallback<ParticipationResponse>{
+            override fun onSuccess(response: ParticipationResponse?) {
+                response?.let {
+                    it.data.result.forEach {  res ->
+                        res.researches.forEach { re ->
+
+                            Log.d("ParticipationResponse", re.code)
+
+                        }
+
+                    }
+                } ?: Log.d("ParticipationResponse", "No Response")
+            }
+
+            override fun onFailure(t: Throwable?) {
+                Log.d("ParticipationResponse", "Failed Response")
+            }
+
+        })
     }
 }
 

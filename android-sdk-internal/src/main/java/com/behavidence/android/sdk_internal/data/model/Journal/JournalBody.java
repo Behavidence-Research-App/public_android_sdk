@@ -3,13 +3,14 @@ package com.behavidence.android.sdk_internal.data.model.Journal;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class JournalBody {
 
     @SerializedName("events")
-    ArrayList<JournalData> events = new ArrayList<>();
+    List<JournalData> events = new ArrayList<>();
 
-    public JournalBody(ArrayList<JournalData> data) {
+    public JournalBody(List<JournalData> data) {
         this.events = data;
     }
 
@@ -21,7 +22,7 @@ public class JournalBody {
         this.events.add(data);
     }
 
-    public ArrayList<JournalData> getEvents() {
+    public List<JournalData> getEvents() {
         return events;
     }
 

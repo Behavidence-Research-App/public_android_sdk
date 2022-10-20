@@ -82,7 +82,7 @@ class AnonymousAuthImp extends AnonymousAuth{
     @NonNull
      AnonymousAuthImp setSessionTTL(long accessTokenTTL) {
         if(accessTokenTTL>-1)
-        this.accessTokenTTL = accessTokenTTL;
+            this.accessTokenTTL = accessTokenTTL;
         return this;
     }
 

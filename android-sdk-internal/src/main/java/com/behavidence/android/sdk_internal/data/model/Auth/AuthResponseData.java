@@ -1,8 +1,11 @@
 package com.behavidence.android.sdk_internal.data.model.Auth;
 
+import androidx.annotation.Nullable;
+
+import com.behavidence.android.sdk_internal.core.Auth.BehavidenceAuth;
 import com.google.gson.annotations.SerializedName;
 
-public class AuthResponseData {
+public class AuthResponseData{
 
     @SerializedName("userid")
     private String userId;
