@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 
 import com.behavidence.android.sdk_internal.Utils.LoadAPIKey;
+import com.behavidence.android.sdk_internal.data.model.Participation.ParticipationDeletionReponse.ParticipationDeletionResponse;
 import com.behavidence.android.sdk_internal.data.model.Participation.ParticipationResponse.ParticipationResponse;
 import com.behavidence.android.sdk_internal.data.repository.BehavidenceResponseCallback;
 import com.behavidence.android.sdk_internal.data.model.Participation.AssociationBody;
@@ -28,7 +29,7 @@ public class ParticipationClient {
 
         apiKey = LoadAPIKey.getKey(context);
         client = RetrofitClient.getClient().create(ParticipationRepoImpl.class);
-        token = "eyJraWQiOiJMYytJdWgrMXhVeTVyR25wdWlXYWwwQUtpSlFIVTdTcmF6V1ZWQ1QzM3lRPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI3ZWU1Yjc4NS1jZTgxLTQ0ZDItOWM5OS04MTEwNmRhM2JkNDEiLCJldmVudF9pZCI6ImM1NjFlODY1LTI4ZjgtNDU3Yy1iYzM1LTg2NzZjODI2MTU3NyIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2NjYyNzM3MDEsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX1lwalNTeVNpYiIsImV4cCI6MTY2NjI3NzMwMSwiaWF0IjoxNjY2MjczNzAxLCJqdGkiOiJhZjQzZjhlMS02MjI1LTQ4MjYtYjU0OS1jNTM0MzhmNmJjM2QiLCJjbGllbnRfaWQiOiI0aGRsZHNocHVvcDNqaThqaTdzZGI2MHFxYyIsInVzZXJuYW1lIjoidThkODI5MDAxOTc3NzJjMjIzZTFjYjk4MGE0OWYyYjNhYWJjOGVmM2IifQ.L0Af-Miwbp6XlZP-YaqeXEUTNkzln1Fq-9UojXpD212JVGvduQtG0cLFwUARQuZI7R2VGJ63IghoWWFHYYgUsNQe5KNe4SkYARWKlIYgZReoU61p1BzJgOJi4S8FDifRCb4ZDK7Jds8EZmHEsI03JcCqz06lguaLSejBW_V3oa7qQci4Wud9fxgrTV5IfohhMy-a7oV1SX9GzfT5EVIKuCKxppZysNzNumuM62BWUzCXxI_2jEjCKW3vYv_I0cT5XOyUYkrH6jx4r9SZlQIp9n_LHzYf5VxuES50yzG4M7TRm_xmmlgjzvsuGtHtRkhPJ93MIHC8smwQXPBQVi2WwA";
+        token = "";
 
     }
 
@@ -92,6 +93,54 @@ public class ParticipationClient {
 
             @Override
             public void onFailure(Call<ParticipationResponse> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
+
+    public ParticipationDeletionResponse deleteResearchSync(String adminId, String researchCode){
+        try {
+            return client.deleteResearch(apiKey, token, adminId, researchCode).execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public void deleteResearch(String adminId, String researchCode, BehavidenceResponseCallback<ParticipationDeletionResponse> callback){
+        client.deleteResearch(apiKey, token, adminId, researchCode).enqueue(new Callback<ParticipationDeletionResponse>() {
+            @Override
+            public void onResponse(Call<ParticipationDeletionResponse> call, Response<ParticipationDeletionResponse> response) {
+                callback.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ParticipationDeletionResponse> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
+
+    public ParticipationDeletionResponse deleteAssociationSync(String adminId){
+        try {
+            return client.deleteAssociation(apiKey, token, adminId).execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public void deleteAssociation(String adminId, BehavidenceResponseCallback<ParticipationDeletionResponse> callback){
+        client.deleteAssociation(apiKey, token, adminId).enqueue(new Callback<ParticipationDeletionResponse>() {
+            @Override
+            public void onResponse(Call<ParticipationDeletionResponse> call, Response<ParticipationDeletionResponse> response) {
+                callback.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ParticipationDeletionResponse> call, Throwable t) {
                 callback.onFailure(t);
             }
         });

@@ -14,4 +14,7 @@ interface AuthRepoImpl {
     @POST("auth/anon/register")
     Call<AnonymousAuthResponse> createAnonProfile(@Header("x-api-key") String apiKey, @Body AnonymousAuthBody body);
 
+    @POST("auth/anon/refresh")
+    Call<AnonymousAuthResponse> refreshAnonProfile(@Header("x-api-key") String apiKey, @Body AnonymousAuthBody body);
+
 }

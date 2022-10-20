@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 public class LoadAPIKey {
 
     public static String getKey(Context context) throws PackageManager.NameNotFoundException {
+
         ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
 
         if(ai.metaData == null) invalidClientKeyException();
