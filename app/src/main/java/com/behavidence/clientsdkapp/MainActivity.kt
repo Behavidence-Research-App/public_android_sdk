@@ -10,8 +10,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.behavidence.android.sdk_internal.core.SdkFunctions.SimilarityScores.MappedMhss
-import com.behavidence.android.sdk_internal.core.SdkFunctions.SimilarityScores.MhssClient
 import com.behavidence.android.sdk_internal.data.repository.Auth.AuthClient
 import com.behavidence.clientsdkapp.ui.theme.CientSDKAppTheme
 
