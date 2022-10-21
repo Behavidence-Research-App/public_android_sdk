@@ -15,13 +15,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ResearchQuestionnaireClient {
+public class ResearchQuestionnaireService {
 
     private String apiKey;
     private String token;
     private ResearchQuestionnaireRepoImpl client;
 
-    public ResearchQuestionnaireClient(Context context) throws PackageManager.NameNotFoundException {
+    public ResearchQuestionnaireService(Context context) throws PackageManager.NameNotFoundException {
 
         apiKey = LoadAPIKey.getKey(context);
         client = RetrofitClient.getClient().create(ResearchQuestionnaireRepoImpl.class);

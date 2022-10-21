@@ -19,13 +19,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ParticipationClient {
+public class ParticipationService {
 
     private String apiKey;
     private String token;
     private ParticipationRepoImpl client;
 
-    public ParticipationClient(Context context) throws PackageManager.NameNotFoundException {
+    public ParticipationService(Context context) throws PackageManager.NameNotFoundException {
 
         apiKey = LoadAPIKey.getKey(context);
         client = RetrofitClient.getClient().create(ParticipationRepoImpl.class);

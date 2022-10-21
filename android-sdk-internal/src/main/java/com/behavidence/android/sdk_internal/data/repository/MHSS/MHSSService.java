@@ -4,27 +4,23 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 
 import com.behavidence.android.sdk_internal.Utils.LoadAPIKey;
-import com.behavidence.android.sdk_internal.core.SdkFunctions.Events.TimeZoneClient;
-import com.behavidence.android.sdk_internal.data.model.Journal.JournalBody;
-import com.behavidence.android.sdk_internal.data.model.Journal.JournalData;
 import com.behavidence.android.sdk_internal.data.model.MHSS.MHSSResponse;
 import com.behavidence.android.sdk_internal.data.repository.BehavidenceResponseCallback;
 import com.behavidence.android.sdk_internal.data.repository.RetrofitClient;
 
 import java.io.IOException;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MHSSClient {
+public class MHSSService {
 
     private String apiKey;
     private String token;
     private MHSSRepoImpl client;
 
-    public MHSSClient(Context context) throws PackageManager.NameNotFoundException {
+    public MHSSService(Context context) throws PackageManager.NameNotFoundException {
 
         apiKey = LoadAPIKey.getKey(context);
         client = RetrofitClient.getClient().create(MHSSRepoImpl.class);

@@ -16,12 +16,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-class AuthClient {
+class AuthService {
 
     private String key;
     private AuthRepoImpl client;
 
-    public AuthClient(Context context) throws PackageManager.NameNotFoundException {
+    public AuthService(Context context) throws PackageManager.NameNotFoundException {
 
         key = LoadAPIKey.getKey(context);
         client = RetrofitClient.getClient().create(AuthRepoImpl.class);

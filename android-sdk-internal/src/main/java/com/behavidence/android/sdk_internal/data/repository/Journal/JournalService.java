@@ -17,14 +17,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-class JournalClient {
+class JournalService {
 
     private String apiKey;
     private String token;
     private JournalRepoImpl client;
     private TimeZoneClient timeZoneClient;
 
-    public JournalClient(Context context) throws PackageManager.NameNotFoundException {
+    public JournalService(Context context) throws PackageManager.NameNotFoundException {
 
         apiKey = LoadAPIKey.getKey(context);
         client = RetrofitClient.getClient().create(JournalRepoImpl.class);

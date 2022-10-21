@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.behavidence.android.sdk_internal.data.model.Participation.ParticipationResponse.ParticipationResponse
 import com.behavidence.android.sdk_internal.data.repository.BehavidenceResponseCallback
-import com.behavidence.android.sdk_internal.data.repository.Participation.ParticipationClient
+import com.behavidence.android.sdk_internal.data.repository.Participation.ParticipationService
 import com.behavidence.clientsdkapp.ui.theme.CientSDKAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,7 +31,10 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        val participationClient= ParticipationClient(this)
+        val participationClient=
+            ParticipationService(
+                this
+            )
         participationClient.getParticipation(object: BehavidenceResponseCallback<ParticipationResponse>{
             override fun onSuccess(response: ParticipationResponse?) {
                 response?.let {
