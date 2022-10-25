@@ -19,10 +19,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.behavidence.android.sdk_internal.data.repository.Auth.AuthClient
+
+import com.behavidence.android.sdk_internal.domain.clients.BehavidenceClient
+import com.behavidence.android.sdk_internal.domain.clients.BehavidenceClientCallback
 import com.behavidence.clientsdkapp.ui.theme.CientSDKAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -41,9 +45,7 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        AuthClient(this)
     }
-}
 
 @Composable
 fun TestSDK(
@@ -114,6 +116,7 @@ fun ButtonText(
             Text(text = buttonText)
         }
         Text(text = testResult)
+
     }
 }
 

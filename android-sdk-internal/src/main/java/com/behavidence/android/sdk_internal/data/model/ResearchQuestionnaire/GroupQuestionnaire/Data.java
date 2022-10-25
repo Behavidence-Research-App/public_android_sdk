@@ -1,8 +1,5 @@
 package com.behavidence.android.sdk_internal.data.model.ResearchQuestionnaire.GroupQuestionnaire;
 
-import com.behavidence.android.sdk_internal.data.model.ResearchQuestionnaire.AdminInfo;
-import com.behavidence.android.sdk_internal.data.model.ResearchQuestionnaire.CodeInfo;
-import com.behavidence.android.sdk_internal.data.model.ResearchQuestionnaire.OrganizationInfo;
 import com.google.gson.annotations.SerializedName;
 
    

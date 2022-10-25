@@ -1,6 +1,5 @@
 package com.behavidence.android.sdk_internal.data.model.ResearchQuestionnaire.GroupQuestionnaire;
 
-import com.behavidence.android.sdk_internal.data.model.ResearchQuestionnaire.Android;
 import com.google.gson.annotations.SerializedName;
 
    
