@@ -11,9 +11,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.behavidence.android.sdk_internal.data.model.Participation.ParticipationResponse.ParticipationResponse
-import com.behavidence.android.sdk_internal.data.repository.BehavidenceResponseCallback
-import com.behavidence.android.sdk_internal.data.repository.Participation.ParticipationService
+import com.behavidence.android.sdk_internal.domain.clients.BehavidenceClient
+import com.behavidence.android.sdk_internal.domain.clients.BehavidenceClientCallback
 import com.behavidence.clientsdkapp.ui.theme.CientSDKAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,41 +30,31 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        val participationClient=
-            ParticipationService(
-                this
-            )
-        participationClient.getParticipation(object: BehavidenceResponseCallback<ParticipationResponse>{
-            override fun onSuccess(response: ParticipationResponse?) {
-                response?.let {
-                    it.data.result.forEach {  res ->
-                        res.researches.forEach { re ->
+        BehavidenceClient.initialize(this)
 
-                            Log.d("ParticipationResponse", re.code)
-
-                        }
-
-                    }
-                } ?: Log.d("ParticipationResponse", "No Response")
+        val client = BehavidenceClient.Auth()
+        client.createAnonymousProfile(object : BehavidenceClientCallback<Boolean> {
+            override fun onSuccess(response: Boolean?) {
+                Log.d("AnonymousResponse", "$response")
             }
 
-            override fun onFailure(t: Throwable?) {
-                Log.d("ParticipationResponse", "Failed Response")
+            override fun onFailure(response: Boolean?, message: String?) {
+                Log.d("AnonymousResponse", "$response $message")
             }
 
         })
     }
-}
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
+    @Composable
+    fun Greeting(name: String) {
+        Text(text = "Hello $name!")
+    }
 
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    CientSDKAppTheme {
-        Greeting("Android")
+    @Preview(showBackground = true)
+    @Composable
+    fun DefaultPreview() {
+        CientSDKAppTheme {
+            Greeting("Android")
+        }
     }
 }

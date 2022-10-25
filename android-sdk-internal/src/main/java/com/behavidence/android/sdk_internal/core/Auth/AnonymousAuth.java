@@ -47,6 +47,7 @@ public abstract class AnonymousAuth implements BehavidenceAuth {
     public abstract long getAccessTokenTTL();
 
 }
+
 class AnonymousAuthImp extends AnonymousAuth{
     private  String accessToken;
     private  String id;
