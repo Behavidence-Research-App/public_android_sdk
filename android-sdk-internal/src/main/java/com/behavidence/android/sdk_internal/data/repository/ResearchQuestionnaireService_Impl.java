@@ -7,6 +7,7 @@ import com.behavidence.android.sdk_internal.Utils.LoadAPIKey;
 import com.behavidence.android.sdk_internal.data.interfaces.ResearchQuestionnaireService;
 import com.behavidence.android.sdk_internal.data.model.ResearchQuestionnaire.GroupQuestionnaire.ResearchQuestionnaireGroupResponse;
 import com.behavidence.android.sdk_internal.data.model.ResearchQuestionnaire.Questionnaire.ResearchQuestionnaireResponse;
+import com.behavidence.android.sdk_internal.domain.clients.BehavidenceClientCallback;
 
 import java.io.IOException;
 
@@ -35,7 +36,7 @@ class ResearchQuestionnaireService_Impl extends ServiceParent implements Researc
         return null;
     }
 
-    public void getQuestionnaire(String code, BehavidenceResponseCallback<ResearchQuestionnaireResponse> callback){
+    public void getQuestionnaire(String code, BehavidenceClientCallback<ResearchQuestionnaireResponse> callback){
 
         loadAuthToken(token -> client.getQuestionnaire(apiKey, token, code).enqueue(new Callback<ResearchQuestionnaireResponse>() {
             @Override
@@ -45,7 +46,7 @@ class ResearchQuestionnaireService_Impl extends ServiceParent implements Researc
 
             @Override
             public void onFailure(Call<ResearchQuestionnaireResponse> call, Throwable t) {
-                callback.onFailure(t);
+                callback.onFailure("Failed to get Questionnaire");
             }
         }));
 
@@ -62,7 +63,7 @@ class ResearchQuestionnaireService_Impl extends ServiceParent implements Researc
         return null;
     }
 
-    public void getGroupQuestionnaire(String code, BehavidenceResponseCallback<ResearchQuestionnaireGroupResponse> callback){
+    public void getGroupQuestionnaire(String code, BehavidenceClientCallback<ResearchQuestionnaireGroupResponse> callback){
 
         loadAuthToken(token -> client.getGroupQuestionnaire(apiKey, token, code).enqueue(new Callback<ResearchQuestionnaireGroupResponse>() {
             @Override
@@ -72,7 +73,7 @@ class ResearchQuestionnaireService_Impl extends ServiceParent implements Researc
 
             @Override
             public void onFailure(Call<ResearchQuestionnaireGroupResponse> call, Throwable t) {
-                callback.onFailure(t);
+                callback.onFailure("Failed to get Group Questionnaire");
             }
         }));
 

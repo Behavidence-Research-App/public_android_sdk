@@ -3,66 +3,48 @@ package com.behavidence.android.sdk_internal.data.room_model.Journal;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.behavidence.android.sdk_internal.core.SdkFunctions.Journals.Journal;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.behavidence.android.sdk_internal.domain.model.Journal.interfaces.Journal;
 
 
 @Entity
-public class GeneralEntry {
-    @Ignore
-    public static final int UPLOADED=1;
-    private final String entry;
+public class GeneralEntry implements Journal {
+
+    public static final int UPLOADED = 1;
+
     @PrimaryKey
     private final long timeInMillisecond;
+    private final String entry;
     private final int uploaded;
 
-    public GeneralEntry(String entry, long timeInMillisecond, int uploaded){
-        this.entry=entry;
-        this.timeInMillisecond=timeInMillisecond;
-        this.uploaded=uploaded;
-    }
-
-    public String getEntry() {
-        return entry;
-    }
-
-    public long getTimeInMillisecond() {
-        return timeInMillisecond;
+    public GeneralEntry(String entry, long timeInMillisecond, int uploaded) {
+        this.entry = entry;
+        this.timeInMillisecond = timeInMillisecond;
+        this.uploaded = uploaded;
     }
 
     public int getUploaded() {
         return uploaded;
     }
 
-    @Ignore
-    public static GeneralEntry convertToRoomData(@NonNull Journal journal, int uploaded){
-      return   new GeneralEntry(journal.getJournalTxt(), journal.getTimeStampMillisecond(), uploaded);
+    public long getTimeInMillisecond() {
+        return timeInMillisecond;
     }
 
-    @Ignore
-    public static Journal convertFromRoomData(@NonNull GeneralEntry entry){
-        return new Journal(entry.getEntry(),entry.getTimeInMillisecond());
+    public String getEntry() {
+        return entry;
     }
 
-
-    @Ignore
-    public static List<GeneralEntry> convertToRoomData(@NonNull List<Journal> journals,int uploaded){
-        List<GeneralEntry> generalEntries=new ArrayList<>();
-        for(Journal journal:journals)
-            generalEntries.add(convertToRoomData(journal,uploaded));
-        return generalEntries;
+    @NonNull
+    @Override
+    public Long getCreationTime() {
+        return timeInMillisecond;
     }
 
-    @Ignore
-    public static List<Journal> convertFromRoomData(@NonNull List<GeneralEntry> generalEntries){
-        List<Journal> journals=new ArrayList<>();
-        for(GeneralEntry generalEntry:generalEntries)
-            journals.add(convertFromRoomData(generalEntry));
-        return journals;
+    @NonNull
+    @Override
+    public String getJournalText() {
+        return entry;
     }
 }

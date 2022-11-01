@@ -7,14 +7,14 @@ import com.google.gson.annotations.SerializedName;
 public class Data {
 
    @SerializedName("scores")
-   List<Scores> scores;
+   List<ScoreList> scoreListList;
 
 
-    public void setScores(List<Scores> scores) {
-        this.scores = scores;
+    public void setScores(List<ScoreList> scores) {
+        this.scoreListList = scores;
     }
-    public List<Scores> getScores() {
-        return scores;
+    public List<ScoreList> getScores() {
+        return scoreListList;
     }
     
 }

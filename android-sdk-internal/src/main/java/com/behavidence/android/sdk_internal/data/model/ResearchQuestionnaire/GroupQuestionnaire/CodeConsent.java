@@ -1,9 +1,12 @@
 package com.behavidence.android.sdk_internal.data.model.ResearchQuestionnaire.GroupQuestionnaire;
 
+import androidx.annotation.Nullable;
+
+import com.behavidence.android.sdk_internal.domain.model.Research.interfaces.Consent;
 import com.google.gson.annotations.SerializedName;
 
    
-public class Consent {
+public class CodeConsent implements Consent {
 
    @SerializedName("html_text")
    String htmlText;
@@ -24,7 +27,13 @@ public class Consent {
     public String getHtmlText() {
         return htmlText;
     }
-    
+
+    @Nullable
+    @Override
+    public String getText() {
+        return htmlText;
+    }
+
     public void setExplanation(String explanation) {
         this.explanation = explanation;
     }

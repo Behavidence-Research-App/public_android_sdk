@@ -13,7 +13,7 @@ import java.util.List;
 
 //public interface to perform different queries on tables
 @Dao
-interface AppSessionDao {
+public interface AppSessionDao {
 
     //getting all pending session which are started but not ended yet
     @Query("SELECT * FROM AppSession WHERE endTime=-1")

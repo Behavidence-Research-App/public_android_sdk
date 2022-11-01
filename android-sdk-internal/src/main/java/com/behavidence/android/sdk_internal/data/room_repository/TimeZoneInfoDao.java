@@ -11,7 +11,7 @@ import com.behavidence.android.sdk_internal.data.room_model.Events.TimeZoneInfo;
 import java.util.List;
 
 @Dao
-interface TimeZoneInfoDao {
+public interface TimeZoneInfoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(TimeZoneInfo timeZoneInfo);

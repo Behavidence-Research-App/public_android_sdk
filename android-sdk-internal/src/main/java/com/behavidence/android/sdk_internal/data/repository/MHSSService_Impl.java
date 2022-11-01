@@ -5,6 +5,8 @@ import android.content.pm.PackageManager;
 
 import com.behavidence.android.sdk_internal.data.interfaces.MHSSService;
 import com.behavidence.android.sdk_internal.data.model.MHSS.MHSSResponse;
+import com.behavidence.android.sdk_internal.data.model.MHSS.ScoreLikeBody;
+import com.behavidence.android.sdk_internal.domain.clients.BehavidenceClientCallback;
 
 import java.io.IOException;
 
@@ -33,7 +35,7 @@ class MHSSService_Impl extends ServiceParent implements MHSSService {
         return null;
     }
 
-    public void getCurrentMHSS(BehavidenceResponseCallback<MHSSResponse> callback){
+    public void getCurrentMHSS(BehavidenceClientCallback<MHSSResponse> callback){
         loadAuthToken(token -> client.getCurrentMHSS(apiKey, token).enqueue(new Callback<MHSSResponse>() {
             @Override
             public void onResponse(Call<MHSSResponse> call, Response<MHSSResponse> response) {
@@ -42,7 +44,7 @@ class MHSSService_Impl extends ServiceParent implements MHSSService {
 
             @Override
             public void onFailure(Call<MHSSResponse> call, Throwable t) {
-                callback.onFailure(t);
+                callback.onFailure("Failed to load current MHSS");
             }
         }));
     }
@@ -59,7 +61,7 @@ class MHSSService_Impl extends ServiceParent implements MHSSService {
         return null;
     }
 
-    public void getMHSSHistory(BehavidenceResponseCallback<MHSSResponse> callback){
+    public void getMHSSHistory(BehavidenceClientCallback<MHSSResponse> callback){
         loadAuthToken(token -> client.getMHSSHistory(apiKey, token).enqueue(new Callback<MHSSResponse>() {
             @Override
             public void onResponse(Call<MHSSResponse> call, Response<MHSSResponse> response) {
@@ -68,7 +70,34 @@ class MHSSService_Impl extends ServiceParent implements MHSSService {
 
             @Override
             public void onFailure(Call<MHSSResponse> call, Throwable t) {
-                callback.onFailure(t);
+                callback.onFailure("Failed to load MHSS History");
+            }
+        }));
+    }
+
+    public Boolean putScoreLikeSync(ScoreLikeBody scoreLikeBody){
+        if(loadAuthTokenSync()) {
+            try {
+                client.putScoreLike(apiKey, token, scoreLikeBody).execute();
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public void putScoreLike(ScoreLikeBody scoreLikeBody, BehavidenceClientCallback<Boolean> callback){
+        loadAuthToken(token -> client.putScoreLike(apiKey, token, scoreLikeBody).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                callback.onSuccess(true);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                callback.onFailure("Failed to change score status");
             }
         }));
     }

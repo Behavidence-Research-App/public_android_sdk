@@ -4,6 +4,8 @@ import com.behavidence.android.sdk_internal.Utils.AnonPasswordGenerator;
 import com.behavidence.android.sdk_internal.data.model.Auth.AnonymousAuthBody;
 import com.behavidence.android.sdk_internal.data.model.Auth.AnonymousAuthRefreshBody;
 import com.behavidence.android.sdk_internal.data.model.Auth.AnonymousAuthResponse;
+import com.behavidence.android.sdk_internal.data.model.Auth.AuthLogoutBody;
+import com.behavidence.android.sdk_internal.data.model.Auth.AuthLogoutResponse;
 import com.behavidence.android.sdk_internal.data.repository.BehavidenceResponseCallback;
 
 import java.io.IOException;
@@ -21,5 +23,9 @@ public interface AuthService {
     AnonymousAuthResponse refreshAnonymousProfileSync(String userId, String password);
 
     void refreshAnonymousProfile(String userId, String password, BehavidenceResponseCallback<AnonymousAuthResponse> callback);
+
+    AuthLogoutResponse logoutAuthSync(String token);
+
+    void logoutAuth(String token, BehavidenceResponseCallback<AuthLogoutResponse> callback);
 
 }

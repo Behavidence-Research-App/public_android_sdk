@@ -1,12 +1,16 @@
 package com.behavidence.clientsdkapp
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.behavidence.android.sdk_internal.data.model.ResearchQuestionnaire.GroupQuestionnaire.ResearchQuestionnaireGroupResponse
+import com.behavidence.android.sdk_internal.domain.clients.BehavidenceCallback
+import com.behavidence.android.sdk_internal.domain.clients.BehavidenceClient
+import com.behavidence.android.sdk_internal.domain.model.MHSS.interfaces.Mhss
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class TestViewModel: ViewModel() {
@@ -92,9 +96,35 @@ class TestViewModel: ViewModel() {
                     mhssHistory = "Loading"
                 )
 
-                state = state.copy(
-                    mhssHistory = "SuccessFull"
-                )
+                var mhss = ""
+                BehavidenceClient.MHSS().getAllMhss(object: BehavidenceCallback<List<Mhss>>{
+                    override fun onSuccess(response: List<Mhss>?) {
+                        if (response != null) {
+                            for(item in response){
+                                mhss += "${item.timeInMilli} ${item.date_yyyy_mm_dd} "
+                                for(score in item.scores){
+                                    mhss += "${score.scoreTitle} ${score.scoreInNumber} ${score.scoring}"
+                                }
+                                mhss += "\n"
+                            }
+                        }
+                        state = state.copy(
+                            mhssHistory = mhss
+                        )
+                    }
+
+                    override fun onFailure(message: String?) {
+                        if (message != null) {
+                            Log.d("MhssCheck", message)
+                        }
+                    }
+
+
+                })
+
+//                state = state.copy(
+//                    mhssHistory = "SuccessFull"
+//                )
 
             } catch (e: Exception) {
                 state = state.copy(
@@ -103,6 +133,50 @@ class TestViewModel: ViewModel() {
             }
         }
     }
+
+    fun researchQuestions() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                state = state.copy(
+                    researchQuestions = "Loading"
+                )
+
+                var questions = ""
+                BehavidenceClient.Questionnaire().getGroupQuestionnaire("saadtest05", object: BehavidenceCallback<ResearchQuestionnaireGroupResponse>{
+
+                    override fun onSuccess(response: ResearchQuestionnaireGroupResponse?) {
+                        response?.data?.codeInfo?.questionsGroup?.forEach {
+                            it.questions.forEach { q ->
+                                questions += q.question + "\n"
+                            }
+                        }
+                        Log.d("ResearchQuestionResponse", "Response $questions")
+                        state = state.copy(
+                            researchQuestions = questions
+                        )
+                    }
+
+                    override fun onFailure(message: String?) {
+                    }
+
+                })
+
+
+                Log.d("ResearchQuestionResponse", "Response $questions")
+
+
+                state = state.copy(
+                    researchQuestions = questions
+                )
+
+            } catch (e: Exception) {
+                state = state.copy(
+                    researchQuestions = "Exception ${e.message}"
+                )
+            }
+        }
+    }
+
     fun associationResearch() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -129,5 +203,6 @@ data class UIState(
     val journalUpload: String = "",
     val mhss: String = "",
     val mhssHistory: String = "",
+    val researchQuestions: String = "",
     val associationResearch: String = "",
 )

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.behavidence.android.sdk_internal.data.interfaces.AuthService;
 import com.behavidence.android.sdk_internal.data.interfaces.AuthSigninService;
+import com.behavidence.android.sdk_internal.data.interfaces.EventsService;
 import com.behavidence.android.sdk_internal.data.interfaces.JournalService;
 import com.behavidence.android.sdk_internal.data.interfaces.MHSSService;
 import com.behavidence.android.sdk_internal.data.interfaces.ParticipationService;
@@ -23,6 +24,7 @@ public class ServiceRepository {
     private final MHSSService_Impl _mhssService;
     private final ParticipationService_Impl _participationService;
     private final ResearchQuestionnaireService_Impl _researchQuestionService;
+    private final EventsService_Impl _eventsService;
 
     public synchronized static ServiceRepository getInstance(Context context){
         if(serviceRepository == null){
@@ -38,6 +40,7 @@ public class ServiceRepository {
         _mhssService = new MHSSService_Impl(context);
         _participationService = new ParticipationService_Impl(context);
         _researchQuestionService = new ResearchQuestionnaireService_Impl(context);
+        _eventsService = new EventsService_Impl(context);
     }
 
     public AuthSigninService auth(){
@@ -53,6 +56,8 @@ public class ServiceRepository {
     public ParticipationService participation(){ return _participationService; }
 
     public ResearchQuestionnaireService researchQuestion(){ return _researchQuestionService; }
+
+    public EventsService events(){ return _eventsService; }
 
 
 }

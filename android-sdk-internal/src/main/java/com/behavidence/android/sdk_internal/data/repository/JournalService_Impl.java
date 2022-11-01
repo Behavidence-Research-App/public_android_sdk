@@ -6,6 +6,7 @@ import com.behavidence.android.sdk_internal.core.SdkFunctions.Events.TimeZoneCli
 import com.behavidence.android.sdk_internal.data.interfaces.JournalService;
 import com.behavidence.android.sdk_internal.data.model.Journal.JournalBody;
 import com.behavidence.android.sdk_internal.data.model.Journal.JournalData;
+import com.behavidence.android.sdk_internal.domain.clients.BehavidenceClientCallback;
 
 import java.io.IOException;
 import java.util.List;
@@ -38,7 +39,7 @@ class JournalService_Impl extends ServiceParent implements JournalService {
         return false;
     }
 
-    public void postJournal(List<JournalData> journalData, BehavidenceResponseCallback<Void> callback){
+    public void postJournal(List<JournalData> journalData, BehavidenceClientCallback<Void> callback){
 
         loadAuthToken(token -> client.postJournal(apiKey, token, new JournalBody(journalData)).enqueue(new Callback<Void>() {
             @Override
@@ -48,7 +49,7 @@ class JournalService_Impl extends ServiceParent implements JournalService {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                callback.onFailure(t);
+                callback.onFailure("Failed to submit Journals");
             }
         }));
     }

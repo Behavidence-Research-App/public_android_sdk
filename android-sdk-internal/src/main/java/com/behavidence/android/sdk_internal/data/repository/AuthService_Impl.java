@@ -9,6 +9,8 @@ import com.behavidence.android.sdk_internal.data.interfaces.AuthService;
 import com.behavidence.android.sdk_internal.data.model.Auth.AnonymousAuthBody;
 import com.behavidence.android.sdk_internal.data.model.Auth.AnonymousAuthRefreshBody;
 import com.behavidence.android.sdk_internal.data.model.Auth.AnonymousAuthResponse;
+import com.behavidence.android.sdk_internal.data.model.Auth.AuthLogoutBody;
+import com.behavidence.android.sdk_internal.data.model.Auth.AuthLogoutResponse;
 
 import java.io.IOException;
 
@@ -70,6 +72,31 @@ class AuthService_Impl implements AuthService {
 
             @Override
             public void onFailure(Call<AnonymousAuthResponse> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
+
+    @Override
+    public AuthLogoutResponse logoutAuthSync(String token) {
+        try {
+            return client.authLogout(key, new AuthLogoutBody(token)).execute().body();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void logoutAuth(String token, BehavidenceResponseCallback<AuthLogoutResponse> callback) {
+        client.authLogout(key, new AuthLogoutBody(token)).enqueue(new Callback<AuthLogoutResponse>() {
+            @Override
+            public void onResponse(Call<AuthLogoutResponse> call, Response<AuthLogoutResponse> response) {
+                callback.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<AuthLogoutResponse> call, Throwable t) {
                 callback.onFailure(t);
             }
         });

@@ -15,7 +15,7 @@ import com.behavidence.android.sdk_internal.data.room_model.Graphs.AppTime;
 import java.util.List;
 
 @Dao
-interface GraphsDao {
+public interface GraphsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(AppTime appTimeDao);
 

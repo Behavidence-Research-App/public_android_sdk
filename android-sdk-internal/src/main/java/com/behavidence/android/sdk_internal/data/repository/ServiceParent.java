@@ -13,6 +13,7 @@ import com.behavidence.android.sdk_internal.Utils.AnonPasswordGenerator;
 import com.behavidence.android.sdk_internal.Utils.LoadAPIKey;
 import com.behavidence.android.sdk_internal.data.interfaces.AuthSigninService;
 import com.behavidence.android.sdk_internal.data.model.Auth.AnonymousAuthResponse;
+import com.behavidence.android.sdk_internal.data.model.Auth.AuthLogoutResponse;
 import com.behavidence.android.sdk_internal.data.model.Auth.AuthResponseData;
 import com.behavidence.android.sdk_internal.domain.clients.BehavidenceClientCallback;
 
@@ -82,9 +83,36 @@ class ServiceParent implements AuthSigninService {
 
             @Override
             public void onFailure(Throwable t) {
-                callback.onFailure(false, "Failed to create Anonymous Profile");
+                callback.onFailure("Failed to create Anonymous Profile");
             }
         });
+    }
+
+    @Override
+    public Boolean authLogoutSync() {
+        if(loadAuthTokenSync()){
+            AuthLogoutResponse resp = authService.logoutAuthSync(token);
+            return resp != null && resp.getData() != null;
+        }
+
+        return false;
+    }
+
+    @Override
+    public void authLogout(BehavidenceClientCallback<Boolean> callback) {
+
+        loadAuthToken(token -> authService.logoutAuth(token, new BehavidenceResponseCallback<AuthLogoutResponse>() {
+            @Override
+            public void onSuccess(AuthLogoutResponse response) {
+                callback.onSuccess(true);
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                callback.onFailure("Failed to logout");
+            }
+        }));
+
     }
 
 
@@ -92,11 +120,15 @@ class ServiceParent implements AuthSigninService {
 
         String userId = sharedPreferences.getString(USER_ID, "");
         String password = sharedPreferences.getString(PASSWORD_TAG, "");
-        token = loadAuthLocal();
+//        token = loadAuthLocal();
+        token = "eyJraWQiOiJMYytJdWgrMXhVeTVyR25wdWlXYWwwQUtpSlFIVTdTcmF6V1ZWQ1QzM3lRPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI3ZWU1Yjc4NS1jZTgxLTQ0ZDItOWM5OS04MTEwNmRhM2JkNDEiLCJldmVudF9pZCI6IjljOTBkYTJjLThhZGQtNGEzNS04YWUwLTBiNjhiNjE0ODEzOSIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2NjY5NzY3NzgsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX1lwalNTeVNpYiIsImV4cCI6MTY2Njk4MDM3OCwiaWF0IjoxNjY2OTc2Nzc4LCJqdGkiOiIzMDExZjE3Ni0zNzc2LTRiMjEtYmI1Ny0zNGE5NmIzOWJjMDUiLCJjbGllbnRfaWQiOiI0aGRsZHNocHVvcDNqaThqaTdzZGI2MHFxYyIsInVzZXJuYW1lIjoidThkODI5MDAxOTc3NzJjMjIzZTFjYjk4MGE0OWYyYjNhYWJjOGVmM2IifQ.QPP6U4D7jZraJYI7CYJAaF2yYLlCpsHOtPoJIpclRDxZ0utJnHWIQsAWOu054XSCYQUcoPj7VoacrDTr5bmsr2am5By5x4rSuShGzf9csdTsKLhAOpai9FM83UfXhrsgbU_KOFcmjUXEcxFXfyvW-AaBW1SmkxXoI97PYLHK2PA3e2Xkxt7yeXTX7nioGi8nnaLbYPP-ftyypc9rFukVlmRY25NYuWKi9DgsZn3tc4mCMS19Y8Zje9gjHd1x-veRqkzsypj7dCV57F9UDQ2gg3nVbMvrllCwjYFSl_F3e3LgLQ45vFqoaw-W6zoivK1LkE8_vHijDbMLmpoywl9sag";
 
         if (token.isEmpty()) {
-            if (userId.isEmpty() || password.isEmpty())
-                Log.e(BEHAVIDENCE_ERROR, "User not logged in. Please sign in again");
+            if (userId.isEmpty() || password.isEmpty()) {
+                createAnonymousProfileSync();
+                return token != null && !token.isEmpty();
+//                Log.e(BEHAVIDENCE_ERROR, "User not logged in. Please sign in again");
+            }
             else {
                 AnonymousAuthResponse refreshResponse = authService.refreshAnonymousProfileSync(userId, password);
                 if (refreshResponse == null) {
@@ -116,11 +148,28 @@ class ServiceParent implements AuthSigninService {
     void loadAuthToken(BehavidenceRefreshCallback callback) {
         String userId = sharedPreferences.getString(USER_ID, "");
         String password = sharedPreferences.getString(PASSWORD_TAG, "");
-        token = loadAuthLocal();
+//        token = loadAuthLocal();
+        token = "eyJraWQiOiJMYytJdWgrMXhVeTVyR25wdWlXYWwwQUtpSlFIVTdTcmF6V1ZWQ1QzM3lRPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI3ZWU1Yjc4NS1jZTgxLTQ0ZDItOWM5OS04MTEwNmRhM2JkNDEiLCJldmVudF9pZCI6IjljOTBkYTJjLThhZGQtNGEzNS04YWUwLTBiNjhiNjE0ODEzOSIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2NjY5NzY3NzgsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC51cy1lYXN0LTEuYW1hem9uYXdzLmNvbVwvdXMtZWFzdC0xX1lwalNTeVNpYiIsImV4cCI6MTY2Njk4MDM3OCwiaWF0IjoxNjY2OTc2Nzc4LCJqdGkiOiIzMDExZjE3Ni0zNzc2LTRiMjEtYmI1Ny0zNGE5NmIzOWJjMDUiLCJjbGllbnRfaWQiOiI0aGRsZHNocHVvcDNqaThqaTdzZGI2MHFxYyIsInVzZXJuYW1lIjoidThkODI5MDAxOTc3NzJjMjIzZTFjYjk4MGE0OWYyYjNhYWJjOGVmM2IifQ.QPP6U4D7jZraJYI7CYJAaF2yYLlCpsHOtPoJIpclRDxZ0utJnHWIQsAWOu054XSCYQUcoPj7VoacrDTr5bmsr2am5By5x4rSuShGzf9csdTsKLhAOpai9FM83UfXhrsgbU_KOFcmjUXEcxFXfyvW-AaBW1SmkxXoI97PYLHK2PA3e2Xkxt7yeXTX7nioGi8nnaLbYPP-ftyypc9rFukVlmRY25NYuWKi9DgsZn3tc4mCMS19Y8Zje9gjHd1x-veRqkzsypj7dCV57F9UDQ2gg3nVbMvrllCwjYFSl_F3e3LgLQ45vFqoaw-W6zoivK1LkE8_vHijDbMLmpoywl9sag";
+
 
         if (token.isEmpty()) {
-            if (userId.isEmpty() || password.isEmpty())
-                Log.e(BEHAVIDENCE_ERROR, "User not logged in. Please sign in again");
+            if (userId.isEmpty() || password.isEmpty()){
+                createAnonymousProfile(new BehavidenceClientCallback<Boolean>() {
+                    @Override
+                    public void onSuccess(Boolean response) {
+                        if (token == null || token.isEmpty()) {
+                            return;
+                        }
+                        callback.executeCallback(token);
+
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                    }
+                });
+            }
+//                Log.e(BEHAVIDENCE_ERROR, "User not logged in. Please sign in again");
             else {
                 authService.refreshAnonymousProfile(userId, password, new BehavidenceResponseCallback<AnonymousAuthResponse>() {
                     @Override
@@ -141,6 +190,8 @@ class ServiceParent implements AuthSigninService {
                     }
                 });
             }
+        }else{
+            callback.executeCallback(token);
         }
     }
 
@@ -149,6 +200,8 @@ class ServiceParent implements AuthSigninService {
         long tokenTTL = sharedPreferences.getLong(ACCESS_TOKEN_TTL, 0);
         String token = sharedPreferences.getString(ACCESS_TOKEN_TAG, "");
         long currentTime = Calendar.getInstance().getTimeInMillis();
+
+        Log.d("ServiceParentCheck", "tokenTTL " + tokenTTL + " token " + token);
 
         if (currentTime > tokenTTL) return "";
         return token;

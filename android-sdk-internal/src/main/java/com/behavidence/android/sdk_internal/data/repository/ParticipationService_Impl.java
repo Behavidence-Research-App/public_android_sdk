@@ -11,6 +11,7 @@ import com.behavidence.android.sdk_internal.data.model.Participation.Association
 import com.behavidence.android.sdk_internal.data.model.Participation.AssociationResearchBody;
 import com.behavidence.android.sdk_internal.data.model.Participation.ParticipationBody;
 import com.behavidence.android.sdk_internal.data.model.Participation.ResearchBody;
+import com.behavidence.android.sdk_internal.domain.clients.BehavidenceClientCallback;
 
 import java.io.IOException;
 
@@ -47,7 +48,7 @@ class ParticipationService_Impl extends ServiceParent implements ParticipationSe
 
     }
 
-    public void postParticipation(ParticipationBody participationBody, BehavidenceResponseCallback<Void> callback){
+    public void postParticipation(ParticipationBody participationBody, BehavidenceClientCallback<Void> callback){
 
         Callback<Void> responseCallback = new Callback<Void>() {
             @Override
@@ -57,7 +58,7 @@ class ParticipationService_Impl extends ServiceParent implements ParticipationSe
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                callback.onFailure(t);
+                callback.onFailure("Failed to submit Participation data");
             }
         };
 
@@ -84,7 +85,7 @@ class ParticipationService_Impl extends ServiceParent implements ParticipationSe
         return null;
     }
 
-    public void getParticipation(BehavidenceResponseCallback<ParticipationResponse> callback){
+    public void getParticipation(BehavidenceClientCallback<ParticipationResponse> callback){
 
         loadAuthToken(token -> client.getAssociationResearch(apiKey, token).enqueue(new Callback<ParticipationResponse>() {
             @Override
@@ -94,7 +95,7 @@ class ParticipationService_Impl extends ServiceParent implements ParticipationSe
 
             @Override
             public void onFailure(Call<ParticipationResponse> call, Throwable t) {
-                callback.onFailure(t);
+                callback.onFailure("Failed to load Participation data");
             }
         }));
 
@@ -114,7 +115,7 @@ class ParticipationService_Impl extends ServiceParent implements ParticipationSe
         return null;
     }
 
-    public void deleteResearch(String adminId, String researchCode, BehavidenceResponseCallback<ParticipationDeletionResponse> callback){
+    public void deleteResearch(String adminId, String researchCode, BehavidenceClientCallback<ParticipationDeletionResponse> callback){
 
         loadAuthToken(token -> client.deleteResearch(apiKey, token, adminId, researchCode).enqueue(new Callback<ParticipationDeletionResponse>() {
             @Override
@@ -124,7 +125,7 @@ class ParticipationService_Impl extends ServiceParent implements ParticipationSe
 
             @Override
             public void onFailure(Call<ParticipationDeletionResponse> call, Throwable t) {
-                callback.onFailure(t);
+                callback.onFailure("Failed to delete Research");
             }
         }));
     }
@@ -141,7 +142,7 @@ class ParticipationService_Impl extends ServiceParent implements ParticipationSe
         return null;
     }
 
-    public void deleteAssociation(String adminId, BehavidenceResponseCallback<ParticipationDeletionResponse> callback){
+    public void deleteAssociation(String adminId, BehavidenceClientCallback<ParticipationDeletionResponse> callback){
 
         loadAuthToken(token -> client.deleteAssociation(apiKey, token, adminId).enqueue(new Callback<ParticipationDeletionResponse>() {
             @Override
@@ -151,7 +152,7 @@ class ParticipationService_Impl extends ServiceParent implements ParticipationSe
 
             @Override
             public void onFailure(Call<ParticipationDeletionResponse> call, Throwable t) {
-                callback.onFailure(t);
+                callback.onFailure("Failed to delete Association");
             }
         }));
 

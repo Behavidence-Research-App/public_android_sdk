@@ -2,18 +2,19 @@ package com.behavidence.android.sdk_internal.data.model.ResearchQuestionnaire.Gr
 
 import com.google.gson.annotations.SerializedName;
 
-   
+
 public class ResearchQuestionnaireGroupResponse {
 
-   @SerializedName("data")
-   Data data;
+    @SerializedName("data")
+    CodeInformationResponse data;
 
 
-    public void setData(Data data) {
+    public void setData(CodeInformationResponse data) {
         this.data = data;
     }
-    public Data getData() {
+
+    public CodeInformationResponse getData() {
         return data;
     }
-    
+
 }

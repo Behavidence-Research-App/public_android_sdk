@@ -11,7 +11,7 @@ import com.behavidence.android.sdk_internal.data.room_model.MHSS.LabelEntity;
 import java.util.List;
 
 @Dao
-interface LabelDao {
+public interface LabelDao {
 
     @Insert
     void insertLabel(LabelEntity labelEntity);

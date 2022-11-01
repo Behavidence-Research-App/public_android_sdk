@@ -11,7 +11,7 @@ import com.behavidence.android.sdk_internal.data.room_model.MHSS.Mhssroom;
 import java.util.List;
 
 @Dao
-interface MhssroomDao {
+public interface MhssroomDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<Mhssroom> mhssrooms);
@@ -36,6 +36,9 @@ interface MhssroomDao {
 
     @Query("SELECT * FROM Mhssroom WHERE timestamp>=:start AND timestamp<=:end LIMIT 10000")
     List<Mhssroom> getMhss(long start, long end);
+
+    @Query("SELECT * FROM Mhssroom WHERE date>=:start AND timestamp<=:end LIMIT 10000")
+    List<Mhssroom> getMhss(String start, String end);
 //
 
 //

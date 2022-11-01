@@ -18,15 +18,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.behavidence.android.sdk_internal.data.repository.Auth.AuthClient
 
 import com.behavidence.android.sdk_internal.domain.clients.BehavidenceClient
-import com.behavidence.android.sdk_internal.domain.clients.BehavidenceClientCallback
 import com.behavidence.clientsdkapp.ui.theme.CientSDKAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -45,83 +40,94 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        BehavidenceClient.initialize(this)
+
     }
 
-@Composable
-fun TestSDK(
-    viewModel: TestViewModel
-) {
-    val scroll = rememberScrollState()
-    val label = remember {
-        mutableStateOf("")
-    }
-    val list = listOf(
-        TestButton(
-            buttonTitle = "AuthClick",
-            testText = viewModel.state.authInfo
-        ) {
-            Log.i("check","auth button click")
-            label.value = "AuthClicked"
-            viewModel.getAuth()
-        },
-        TestButton(
-            buttonTitle = "AuthRefresh",
-            testText = viewModel.state.authRefresh,
-        ) {
-            viewModel.authRefresh()
-        },
-        TestButton(
-            buttonTitle = "Mhss",
-            testText = viewModel.state.mhss,
-        ) {
-            viewModel.mhss()
-        },TestButton(
-            buttonTitle = "Mhss History",
-            testText = viewModel.state.mhssHistory,
-        ) {
-            viewModel.mhssHistory()
-        },TestButton(
-            buttonTitle = "Association Research",
-            testText = viewModel.state.associationResearch,
-        ) {
-            viewModel.associationResearch()
-        },
-    )
-    Column(
-        modifier = Modifier
-            .verticalScroll(scroll)
-            .padding(all = 14.dp)
-            .fillMaxSize()
+    @Composable
+    fun TestSDK(
+        viewModel: TestViewModel
     ) {
-        list.forEach { item ->
-            ButtonText(
-                testResult = item.testText,
-                onClick = item.buttonClick,
-                buttonText = item.buttonTitle
-            )
+        val scroll = rememberScrollState()
+        val label = remember {
+            mutableStateOf("")
+        }
+        val list = listOf(
+            TestButton(
+                buttonTitle = "AuthClick",
+                testText = viewModel.state.authInfo
+            ) {
+                Log.i("check", "auth button click")
+                label.value = "AuthClicked"
+                viewModel.getAuth()
+            },
+            TestButton(
+                buttonTitle = "AuthRefresh",
+                testText = viewModel.state.authRefresh,
+            ) {
+                viewModel.authRefresh()
+            },
+            TestButton(
+                buttonTitle = "Mhss",
+                testText = viewModel.state.mhss,
+            ) {
+                viewModel.mhss()
+            },
+            TestButton(
+                buttonTitle = "Mhss History",
+                testText = viewModel.state.mhssHistory,
+            ) {
+                viewModel.mhssHistory()
+            },
+            TestButton(
+                buttonTitle = "Research Questions",
+                testText = viewModel.state.researchQuestions,
+            ) {
+                viewModel.researchQuestions()
+            },
+            TestButton(
+                buttonTitle = "Association Research",
+                testText = viewModel.state.associationResearch,
+            ) {
+                viewModel.associationResearch()
+            },
+        )
+        Column(
+            modifier = Modifier
+                .verticalScroll(scroll)
+                .padding(all = 14.dp)
+                .fillMaxSize()
+        ) {
+            list.forEach { item ->
+                ButtonText(
+                    testResult = item.testText,
+                    onClick = item.buttonClick,
+                    buttonText = item.buttonTitle
+                )
+            }
         }
     }
-}
 
-@Composable
-fun ButtonText(
-    buttonText: String,
-    onClick:() -> Unit,
-    testResult: String
-) {
-    Column {
-        Button(onClick = {
-            onClick()
-        }) {
-            Text(text = buttonText)
+    @Composable
+    fun ButtonText(
+        buttonText: String,
+        onClick: () -> Unit,
+        testResult: String
+    ) {
+        Column {
+            Button(onClick = {
+                onClick()
+            }) {
+                Text(text = buttonText)
+            }
+            Text(text = testResult)
+
         }
-        Text(text = testResult)
-
     }
-}
 
-data class TestButton(
-    val testText: String,
-    val buttonTitle: String,
-    val buttonClick: () -> Unit,
-)
+    data class TestButton(
+        val testText: String,
+        val buttonTitle: String,
+        val buttonClick: () -> Unit,
+    )
+}

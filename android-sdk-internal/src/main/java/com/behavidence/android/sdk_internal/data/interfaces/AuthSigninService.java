@@ -13,4 +13,7 @@ public interface AuthSigninService {
 
     void createAnonymousProfile(BehavidenceClientCallback<Boolean> callback);
 
+    Boolean authLogoutSync();
+
+    void authLogout(BehavidenceClientCallback<Boolean> callback);
 }

@@ -10,7 +10,7 @@ import com.behavidence.android.sdk_internal.data.room_model.MHSS.CustomLabelEnti
 import java.util.List;
 
 @Dao
-interface CustomLabelDao {
+public interface CustomLabelDao {
 
     @Insert
     long insertCustomLabel(CustomLabelEntity customLabelEntity);

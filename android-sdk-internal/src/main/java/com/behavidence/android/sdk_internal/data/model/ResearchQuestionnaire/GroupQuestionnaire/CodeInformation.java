@@ -4,7 +4,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 
    
-public class CodeInfo {
+public class CodeInformation {
 
    @SerializedName("adminid")
    String adminid;
@@ -25,7 +25,7 @@ public class CodeInfo {
    CustomLabel customLabel;
 
    @SerializedName("consent")
-   Consent consent;
+   CodeConsent consent;
 
 
     public void setAdminid(String adminid) {
@@ -70,10 +70,10 @@ public class CodeInfo {
         return customLabel;
     }
     
-    public void setConsent(Consent consent) {
+    public void setConsent(CodeConsent consent) {
         this.consent = consent;
     }
-    public Consent getConsent() {
+    public CodeConsent getConsent() {
         return consent;
     }
     

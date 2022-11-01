@@ -7,11 +7,11 @@ import com.behavidence.android.sdk_internal.data.model.ResearchQuestionnaire.Gro
 import com.behavidence.android.sdk_internal.data.model.ResearchQuestionnaire.Questionnaire.ResearchQuestionnaireResponse;
 import com.behavidence.android.sdk_internal.domain.interfaces.Questionnaire;
 
-public class ResearchQuestionnaireClient extends ClientParent implements Questionnaire {
+public class ResearchQuestionnaireClient_Impl extends ClientParent implements Questionnaire {
 
     private ResearchQuestionnaireService _service;
 
-    public ResearchQuestionnaireClient(Context context) {
+    public ResearchQuestionnaireClient_Impl(Context context) {
         super(context);
         _service = services.researchQuestion();
     }
@@ -28,11 +28,22 @@ public class ResearchQuestionnaireClient extends ClientParent implements Questio
 
     @Override
     public ResearchQuestionnaireGroupResponse getGroupQuestionnaireSync(String code) {
-        return null;
+        return _service.getGroupQuestionnaireSync(code);
     }
 
     @Override
     public void getGroupQuestionnaire(String code, BehavidenceCallback<ResearchQuestionnaireGroupResponse> callback) {
 
+        _service.getGroupQuestionnaire(code, new BehavidenceClientCallback<ResearchQuestionnaireGroupResponse>() {
+            @Override
+            public void onSuccess(ResearchQuestionnaireGroupResponse response) {
+                callback.onSuccess(response);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                callback.onFailure(message);
+            }
+        });
     }
 }

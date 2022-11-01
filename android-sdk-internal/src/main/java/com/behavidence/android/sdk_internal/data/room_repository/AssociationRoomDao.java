@@ -17,7 +17,7 @@ import com.behavidence.android.sdk_internal.data.room_model.Participation.join.R
 import java.util.List;
 
 @Dao
-interface AssociationRoomDao {
+public interface AssociationRoomDao {
 
         @Insert(onConflict = OnConflictStrategy.REPLACE)
         void insertAdmin(AdminRoom adminRoom);

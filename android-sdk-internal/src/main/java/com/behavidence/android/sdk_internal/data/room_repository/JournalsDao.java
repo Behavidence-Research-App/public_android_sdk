@@ -11,7 +11,7 @@ import com.behavidence.android.sdk_internal.data.room_model.Journal.GeneralEntry
 import java.util.List;
 
 @Dao
-interface JournalsDao {
+public interface JournalsDao {
     //getting all pending session which are started but not ended yet
     @Query("SELECT * FROM GeneralEntry WHERE uploaded=0 LIMIT:limit")
     List<GeneralEntry> getPendingJournals(int limit);

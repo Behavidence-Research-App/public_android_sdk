@@ -4,7 +4,7 @@ public interface BehavidenceClientCallback<T> {
 
     void onSuccess(T response);
 
-    void onFailure(T response, String message);
+    void onFailure(String message);
 
 
 }

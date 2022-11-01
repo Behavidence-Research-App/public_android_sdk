@@ -11,4 +11,10 @@ public interface Auth {
 
     void createAnonymousProfile(@NonNull BehavidenceCallback<Boolean> callback);
 
+    boolean logoutSync();
+
+    void logout(@NonNull BehavidenceCallback<Boolean> callback);
+
+
+
 }

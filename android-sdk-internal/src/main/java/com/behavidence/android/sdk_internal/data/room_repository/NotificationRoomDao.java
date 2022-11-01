@@ -11,7 +11,7 @@ import com.behavidence.android.sdk_internal.data.room_model.Notification.Notific
 import java.util.List;
 
 @Dao
-interface NotificationRoomDao {
+public interface NotificationRoomDao {
     //insertion and replace already existing element
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(List<NotificationRoom> notificationRooms);

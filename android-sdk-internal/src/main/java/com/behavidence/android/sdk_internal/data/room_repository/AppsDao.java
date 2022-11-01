@@ -12,7 +12,7 @@ import com.behavidence.android.sdk_internal.data.room_model.Events.App;
 import java.util.List;
 
 @Dao
-interface AppsDao {
+public interface AppsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
      void insertList(List<App> apps);
 

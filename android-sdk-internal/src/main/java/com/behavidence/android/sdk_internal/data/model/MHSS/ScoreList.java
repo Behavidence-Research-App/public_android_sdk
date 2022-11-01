@@ -1,30 +1,29 @@
 package com.behavidence.android.sdk_internal.data.model.MHSS;
-import java.util.Date;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
    
-public class Scores {
+public class ScoreList {
 
    @SerializedName("date")
-   Date date;
+   String date;
 
    @SerializedName("scores")
-   List<Scores> scores;
+   List<ScoreBody> scores;
 
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
     
-    public void setScores(List<Scores> scores) {
+    public void setScores(List<ScoreBody> scores) {
         this.scores = scores;
     }
-    public List<Scores> getScores() {
+    public List<ScoreBody> getScores() {
         return scores;
     }
     
