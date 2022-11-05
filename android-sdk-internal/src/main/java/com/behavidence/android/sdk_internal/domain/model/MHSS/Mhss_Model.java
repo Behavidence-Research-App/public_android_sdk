@@ -44,4 +44,5 @@ public class Mhss_Model implements Mhss {
     public List<Score> getScores() {
         return new ArrayList<>(scores);
     }
+
 }

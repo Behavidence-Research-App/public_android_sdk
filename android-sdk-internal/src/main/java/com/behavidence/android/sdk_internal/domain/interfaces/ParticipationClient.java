@@ -18,19 +18,19 @@ public interface ParticipationClient {
     @Nullable
     void getCodeInfo(@NonNull String code, BehavidenceResearchCallback<CodeInfo> callback);
 
-    void submit(@NonNull CodeInfo codeInfo);
+    void submit(@NonNull CodeInfo codeInfo, BehavidenceCallback<String> callback);
 
     @NonNull
-    List<Participation> getAllParticipation();
+    void getAllParticipation(BehavidenceCallback<List<Participation>> callback);
 
     @NonNull
-    List<ResearchParticipation> getAllResearchParticipation();
+    void getAllResearchParticipation(BehavidenceCallback<List<ResearchParticipation>> callback);
 
     @NonNull
-    List<AssociationParticipation> getAllAssociationParticipation();
+    void getAllAssociationParticipation(BehavidenceCallback<List<AssociationParticipation>> callback);
 
-    void deleteAssociationParticipation(@NonNull AssociationParticipation associationParticipation);
+    void deleteAssociationParticipation(@NonNull AssociationParticipation associationParticipation, BehavidenceCallback<String> callback);
 
-    void deleteResearchParticipation(@NonNull ResearchParticipation researchParticipation);
+    void deleteResearchParticipation(@NonNull ResearchParticipation researchParticipation, BehavidenceCallback<String> callback);
 
 }

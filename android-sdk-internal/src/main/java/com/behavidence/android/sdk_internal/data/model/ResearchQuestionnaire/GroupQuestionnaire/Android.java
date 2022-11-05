@@ -7,14 +7,20 @@ import com.google.gson.annotations.SerializedName;
 public class Android {
 
    @SerializedName("mhss_labels")
-   List<MhssLabels> mhssLabels;
+   List<QuestionnaireMhssLabels> mhssLabels;
 
 
-    public void setMhssLabels(List<MhssLabels> mhssLabels) {
+    public void setMhssLabels(List<QuestionnaireMhssLabels> mhssLabels) {
         this.mhssLabels = mhssLabels;
     }
-    public List<MhssLabels> getMhssLabels() {
+    public List<QuestionnaireMhssLabels> getMhssLabels() {
         return mhssLabels;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Android{" +
+                "mhssLabels=" + mhssLabels +
+                '}';
+    }
 }

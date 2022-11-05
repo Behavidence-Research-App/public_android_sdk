@@ -1,8 +1,10 @@
 package com.behavidence.android.sdk_internal.data.repository;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.behavidence.android.sdk_internal.data.interfaces.EventsService;
+import com.behavidence.android.sdk_internal.data.model.Events.AppCategoryResponse;
 import com.behavidence.android.sdk_internal.data.model.Events.AppId;
 import com.behavidence.android.sdk_internal.data.model.Events.CategoryBody;
 import com.behavidence.android.sdk_internal.data.model.Events.Session;
@@ -20,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EventsService_Impl extends ServiceParent implements EventsService {
+class EventsService_Impl extends ServiceParent implements EventsService {
 
 
     private EventsRepoImpl client;
@@ -31,31 +33,30 @@ public class EventsService_Impl extends ServiceParent implements EventsService {
     }
 
     @Override
-    public boolean postAppCategorySync(List<AppId> apps) {
+    public AppCategoryResponse postAppCategorySync(List<AppId> apps) {
         if(loadAuthTokenSync()) {
             try {
-                client.postApps(apiKey, token, new CategoryBody(apps)).execute();
-                return true;
+                return client.postApps(apiKey, token, new CategoryBody(apps)).execute().body();
             } catch (IOException e) {
                 e.printStackTrace();
-                return false;
+                return null;
             }
         }
 
-        return false;
+        return null;
     }
 
     @Override
-    public void postAppCategory(List<AppId> apps, BehavidenceClientCallback<Void> callback) {
+    public void postAppCategory(List<AppId> apps, BehavidenceClientCallback<AppCategoryResponse> callback) {
 
-        loadAuthToken(token -> client.postApps(apiKey, token, new CategoryBody(apps)).enqueue(new Callback<Void>() {
+        loadAuthToken(token -> client.postApps(apiKey, token, new CategoryBody(apps)).enqueue(new Callback<AppCategoryResponse>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<AppCategoryResponse> call, Response<AppCategoryResponse> response) {
                 callback.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<AppCategoryResponse> call, Throwable t) {
                 callback.onFailure("Failed to submit Apps");
             }
         }));

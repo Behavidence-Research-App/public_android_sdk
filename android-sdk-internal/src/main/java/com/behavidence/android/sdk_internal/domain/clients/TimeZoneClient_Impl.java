@@ -16,11 +16,10 @@ import java.util.TimeZone;
 class TimeZoneClient_Impl extends ClientParent implements TimeZoneClient {
 
     private static final String TIME_ZONE_FILE = "timezonesbheavidence";
-    private final Context context;
+
 
     TimeZoneClient_Impl(Context context) {
         super(context);
-        this.context = context;
     }
 
 
@@ -43,13 +42,13 @@ class TimeZoneClient_Impl extends ClientParent implements TimeZoneClient {
 
 
     @Override
-    public long getLastTimeOfUpload() {
+    public long getLastTimeOfUpload(Context context) {
         return context.getSharedPreferences(TIME_ZONE_FILE, Context.MODE_PRIVATE)
                 .getLong(TIME_ZONE_FILE, 0);
     }
 
     @Override
-    public void saveLastTimeOfUpload(long time) {
+    public void saveLastTimeOfUpload(Context context, long time) {
         if (time > -1)
             saveLastTimeOfUploadSync(context, time);
 

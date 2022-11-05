@@ -2,23 +2,23 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "70fa9e1206d8cb28499b84d72c823bb1",
+    "identityHash": "6e1dc89568ae123e2dcd35b62e5febe7",
     "entities": [
       {
         "tableName": "GeneralEntry",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`entry` TEXT, `timeInMillisecond` INTEGER NOT NULL, `uploaded` INTEGER NOT NULL, PRIMARY KEY(`timeInMillisecond`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`timeInMillisecond` INTEGER NOT NULL, `entry` TEXT, `uploaded` INTEGER NOT NULL, PRIMARY KEY(`timeInMillisecond`))",
         "fields": [
-          {
-            "fieldPath": "entry",
-            "columnName": "entry",
-            "affinity": "TEXT",
-            "notNull": false
-          },
           {
             "fieldPath": "timeInMillisecond",
             "columnName": "timeInMillisecond",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "entry",
+            "columnName": "entry",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "uploaded",
@@ -418,89 +418,6 @@
         ]
       },
       {
-        "tableName": "AppTime",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`packageName` TEXT NOT NULL, `totalTime` INTEGER NOT NULL, `frequency` INTEGER NOT NULL, `timeInMillisecond` INTEGER NOT NULL, PRIMARY KEY(`packageName`, `timeInMillisecond`))",
-        "fields": [
-          {
-            "fieldPath": "packageName",
-            "columnName": "packageName",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "totalTime",
-            "columnName": "totalTime",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "frequency",
-            "columnName": "frequency",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "timeInMillisecond",
-            "columnName": "timeInMillisecond",
-            "affinity": "INTEGER",
-            "notNull": true
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": false,
-          "columnNames": [
-            "packageName",
-            "timeInMillisecond"
-          ]
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
-        "tableName": "NotificationRoom",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`timeInMilli` INTEGER NOT NULL, `title` TEXT NOT NULL, `subTitle` TEXT NOT NULL, `htmlTxt` TEXT, `txt` TEXT, PRIMARY KEY(`timeInMilli`))",
-        "fields": [
-          {
-            "fieldPath": "timeInMilli",
-            "columnName": "timeInMilli",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "title",
-            "columnName": "title",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "subTitle",
-            "columnName": "subTitle",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "htmlTxt",
-            "columnName": "htmlTxt",
-            "affinity": "TEXT",
-            "notNull": false
-          },
-          {
-            "fieldPath": "txt",
-            "columnName": "txt",
-            "affinity": "TEXT",
-            "notNull": false
-          }
-        ],
-        "primaryKey": {
-          "autoGenerate": false,
-          "columnNames": [
-            "timeInMilli"
-          ]
-        },
-        "indices": [],
-        "foreignKeys": []
-      },
-      {
         "tableName": "CustomLabelEntity",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `researchFId` TEXT, `researchFCode` TEXT, `associationFId` TEXT, `associationFCode` TEXT, `timestamp` INTEGER NOT NULL, FOREIGN KEY(`researchFId`, `researchFCode`) REFERENCES `ResearchRoom`(`adminId`, `code`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`associationFId`, `associationFCode`) REFERENCES `AssociationRoom`(`adminId`, `code`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
@@ -655,7 +572,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '70fa9e1206d8cb28499b84d72c823bb1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6e1dc89568ae123e2dcd35b62e5febe7')"
     ]
   }
 }

@@ -54,5 +54,14 @@ public class CodeConsent implements Consent {
     public String getWebsite() {
         return website;
     }
-    
+
+    @Override
+    public String toString() {
+        return "CodeConsent{" +
+                "htmlText='" + htmlText + '\'' +
+                ", explanation='" + explanation + '\'' +
+                ", header='" + header + '\'' +
+                ", website='" + website + '\'' +
+                '}';
+    }
 }

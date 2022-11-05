@@ -10,29 +10,30 @@ import com.behavidence.android.sdk_internal.domain.interfaces.Questionnaire;
 
 public class BehavidenceClient {
 
-    private static AuthClient_Impl authClientImpl = null;
+//    private static AuthClient_Impl authClientImpl = null;
     private static ParticipationClient participationClient = null;
-    private static Questionnaire questionnaire = null;
+//    private static Questionnaire questionnaire = null;
     private static JournalClient journalClient = null;
     private static MHSSClient mhssClient = null;
     private static TimeZoneClient_Impl timeZoneClient = null;
 
     public static void initialize(Context context){
-        authClientImpl = new AuthClient_Impl(context);
+//        authClientImpl = new AuthClient_Impl(context);
         participationClient = new ParticipationClient_Impl(context);
-        questionnaire = new ResearchQuestionnaireClient_Impl(context);
+//        questionnaire = new ResearchQuestionnaireClient_Impl(context);
         journalClient = new JournalClient_Impl(context);
         mhssClient = new MHSSClient_Impl(context);
         timeZoneClient = new TimeZoneClient_Impl(context);
+        WorkManagerClient.initializeWorker(context);
 
         timeZoneClient.logTimeZone();
     }
 
-    public static Auth Auth(){
-        if(authClientImpl == null)
-            throw new NullPointerException("Client has not been initialized");
-        return authClientImpl;
-    }
+//    public static Auth Auth(){
+//        if(authClientImpl == null)
+//            throw new NullPointerException("Client has not been initialized");
+//        return authClientImpl;
+//    }
 
     public static ParticipationClient Participation(){
         if(participationClient == null)
@@ -40,11 +41,11 @@ public class BehavidenceClient {
         return participationClient;
     }
 
-    public static Questionnaire Questionnaire(){
-        if(questionnaire == null)
-            throw new NullPointerException("Client has not been initialized");
-        return questionnaire;
-    }
+//    public static Questionnaire Questionnaire(){
+//        if(questionnaire == null)
+//            throw new NullPointerException("Client has not been initialized");
+//        return questionnaire;
+//    }
 
     public static JournalClient Journal(){
         if(journalClient == null)

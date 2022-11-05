@@ -6,6 +6,9 @@ import com.google.gson.annotations.SerializedName;
    
 public class CodeInformation {
 
+    @SerializedName("name")
+    String name;
+
    @SerializedName("adminid")
    String adminid;
 
@@ -27,6 +30,13 @@ public class CodeInformation {
    @SerializedName("consent")
    CodeConsent consent;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public void setAdminid(String adminid) {
         this.adminid = adminid;
@@ -76,5 +86,18 @@ public class CodeInformation {
     public CodeConsent getConsent() {
         return consent;
     }
-    
+
+    @Override
+    public String toString() {
+        return "CodeInformation{" +
+                "name='" + name + '\'' +
+                ", adminid='" + adminid + '\'' +
+                ", code='" + code + '\'' +
+                ", type='" + type + '\'' +
+                ", customUiName='" + customUiName + '\'' +
+                ", questionsGroup=" + questionsGroup +
+                ", customLabel=" + customLabel +
+                ", consent=" + consent +
+                '}';
+    }
 }

@@ -7,7 +7,7 @@ import com.behavidence.android.sdk_internal.data.model.ResearchQuestionnaire.Gro
 import com.behavidence.android.sdk_internal.data.model.ResearchQuestionnaire.Questionnaire.ResearchQuestionnaireResponse;
 import com.behavidence.android.sdk_internal.domain.interfaces.Questionnaire;
 
-public class ResearchQuestionnaireClient_Impl extends ClientParent implements Questionnaire {
+class ResearchQuestionnaireClient_Impl extends ClientParent implements Questionnaire {
 
     private ResearchQuestionnaireService _service;
 

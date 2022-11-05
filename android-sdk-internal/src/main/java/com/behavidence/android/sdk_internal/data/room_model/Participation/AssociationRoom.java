@@ -10,8 +10,6 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 
-import com.behavidence.android.sdk_internal.core.SdkFunctions.Association.Room.AdminRoom;
-
 @Entity(primaryKeys = {"adminId", "code"},
         foreignKeys = @ForeignKey(entity = AdminRoom.class,
         parentColumns = "id",

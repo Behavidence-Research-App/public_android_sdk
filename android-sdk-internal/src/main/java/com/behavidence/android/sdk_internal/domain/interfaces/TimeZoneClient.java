@@ -1,5 +1,7 @@
 package com.behavidence.android.sdk_internal.domain.interfaces;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 
 
@@ -15,9 +17,9 @@ public interface TimeZoneClient {
     @NonNull
     List<TimeZoneInfo> loadUploadPendingZones(long lastTimeOfUpload);
 
-    long getLastTimeOfUpload();
+    long getLastTimeOfUpload(Context context);
 
-    void saveLastTimeOfUpload(long time);
+    void saveLastTimeOfUpload(Context context, long time);
 
     void logTimeZone();
 

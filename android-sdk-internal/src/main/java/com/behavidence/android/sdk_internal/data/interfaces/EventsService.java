@@ -1,5 +1,6 @@
 package com.behavidence.android.sdk_internal.data.interfaces;
 
+import com.behavidence.android.sdk_internal.data.model.Events.AppCategoryResponse;
 import com.behavidence.android.sdk_internal.data.model.Events.AppId;
 import com.behavidence.android.sdk_internal.data.model.Events.Session;
 import com.behavidence.android.sdk_internal.data.model.Events.SessionResponse;
@@ -11,9 +12,9 @@ import java.util.List;
 
 public interface EventsService {
 
-    boolean postAppCategorySync(List<AppId> apps);
+    AppCategoryResponse postAppCategorySync(List<AppId> apps);
 
-    void postAppCategory(List<AppId> apps, BehavidenceClientCallback<Void> callback);
+    void postAppCategory(List<AppId> apps, BehavidenceClientCallback<AppCategoryResponse> callback);
 
     SessionResponse postSessionSync(List<Session> sessions);
 

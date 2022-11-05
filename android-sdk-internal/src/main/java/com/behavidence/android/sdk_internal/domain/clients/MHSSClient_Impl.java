@@ -27,7 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MHSSClient_Impl extends ClientParent implements MHSSClient {
+class MHSSClient_Impl extends ClientParent implements MHSSClient {
 
     private MHSSService _service;
 

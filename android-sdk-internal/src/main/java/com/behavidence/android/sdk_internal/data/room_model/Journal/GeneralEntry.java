@@ -47,4 +47,13 @@ public class GeneralEntry implements Journal {
     public String getJournalText() {
         return entry;
     }
+
+    @Override
+    public String toString() {
+        return "GeneralEntry{" +
+                "timeInMillisecond=" + timeInMillisecond +
+                ", entry='" + entry + '\'' +
+                ", uploaded=" + uploaded +
+                '}';
+    }
 }

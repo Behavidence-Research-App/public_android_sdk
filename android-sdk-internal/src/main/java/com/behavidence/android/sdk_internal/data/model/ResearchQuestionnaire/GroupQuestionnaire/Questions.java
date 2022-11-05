@@ -141,4 +141,16 @@ public class Questions implements ResearchQuestion {
         return calReverse;
     }
 
+    @Override
+    public String toString() {
+        return "Questions{" +
+                "qid='" + qid + '\'' +
+                ", no=" + no +
+                ", question='" + question + '\'' +
+                ", multiple=" + multiple +
+                ", options=" + options +
+                ", calReverse=" + calReverse +
+                ", selectedOptions=" + selectedOptions +
+                '}';
+    }
 }

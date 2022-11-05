@@ -10,4 +10,5 @@ public interface Journal {
     @NonNull
     String getJournalText();
 
+
 }

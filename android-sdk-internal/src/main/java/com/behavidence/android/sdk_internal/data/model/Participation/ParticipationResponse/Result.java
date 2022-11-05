@@ -56,5 +56,15 @@ public class Result {
     public AdminInfo getAdminInfo() {
         return adminInfo;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "adminid='" + adminid + '\'' +
+                ", association=" + association +
+                ", researches=" + researches +
+                ", organizationInfo=" + organizationInfo +
+                ", adminInfo=" + adminInfo +
+                '}';
+    }
 }

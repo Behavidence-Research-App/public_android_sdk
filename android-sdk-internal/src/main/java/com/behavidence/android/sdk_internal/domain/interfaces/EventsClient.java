@@ -1,5 +1,6 @@
 package com.behavidence.android.sdk_internal.domain.interfaces;
 
+import com.behavidence.android.sdk_internal.data.model.Events.AppCategoryResponse;
 import com.behavidence.android.sdk_internal.data.model.Events.AppId;
 import com.behavidence.android.sdk_internal.data.model.Events.CategoryBody;
 import com.behavidence.android.sdk_internal.data.model.Events.Session;
@@ -19,10 +20,10 @@ import retrofit2.Response;
 
 public interface EventsClient {
 
-    void postAppCategory(List<AppId> apps, BehavidenceCallback<Void> callback);
+    boolean postAppCategorySync(List<AppId> apps);
 
-    void postSession(List<Session> sessions, BehavidenceCallback<SessionResponse> callback);
+    SessionResponse postSessionSync(List<Session> sessions);
 
-    void postSession(List<Session> sessions, List<ZoneInfo> zones, BehavidenceCallback<SessionResponse> callback);
+    SessionResponse postSessionSync(List<Session> sessions, List<ZoneInfo> zones);
 
 }

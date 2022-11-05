@@ -57,4 +57,13 @@ public class QuestionsGroup implements QuestionGroup {
     public String getQuestionsHeader() {
         return header;
     }
+
+    @Override
+    public String toString() {
+        return "QuestionsGroup{" +
+                "header='" + header + '\'' +
+                ", submitIndexAnswers=" + submitIndexAnswers +
+                ", questions=" + questions +
+                '}';
+    }
 }

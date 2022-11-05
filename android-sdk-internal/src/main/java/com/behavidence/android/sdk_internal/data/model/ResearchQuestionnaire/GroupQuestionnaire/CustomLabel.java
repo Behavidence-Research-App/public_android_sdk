@@ -15,5 +15,11 @@ public class CustomLabel {
     public Android getAndroid() {
         return android;
     }
-    
+
+    @Override
+    public String toString() {
+        return "CustomLabel{" +
+                "android=" + android +
+                '}';
+    }
 }

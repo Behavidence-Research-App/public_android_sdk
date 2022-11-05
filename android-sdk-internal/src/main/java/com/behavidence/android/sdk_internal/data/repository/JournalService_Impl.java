@@ -2,7 +2,6 @@ package com.behavidence.android.sdk_internal.data.repository;
 
 import android.content.Context;
 
-import com.behavidence.android.sdk_internal.core.SdkFunctions.Events.TimeZoneClient;
 import com.behavidence.android.sdk_internal.data.interfaces.JournalService;
 import com.behavidence.android.sdk_internal.data.model.Journal.JournalBody;
 import com.behavidence.android.sdk_internal.data.model.Journal.JournalData;

@@ -19,6 +19,15 @@ public class Session {
     @SerializedName("enduser")
     private String endUser;
 
+    public Session(long start, long end, String id, String zone, String startUser, String endUser) {
+        this.start = start;
+        this.end = end;
+        this.id = id;
+        this.zone = zone;
+        this.startUser = startUser;
+        this.endUser = endUser;
+    }
+
     public long getStart() {
         return start;
     }

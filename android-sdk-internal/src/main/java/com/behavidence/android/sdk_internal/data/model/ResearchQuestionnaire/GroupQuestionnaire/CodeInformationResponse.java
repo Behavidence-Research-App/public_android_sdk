@@ -20,10 +20,10 @@ public class CodeInformationResponse implements CodeInfo {
    CodeInformation codeInfo;
 
    @SerializedName("admin_info")
-   AdminInfo adminInfo;
+   QuestionnaireAdminInfo adminInfo;
 
    @SerializedName("organization_info")
-   OrganizationInfo organizationInfo;
+   QuestionnaireOrganizationInfo organizationInfo;
 
    Long associationTime = null;
 
@@ -35,17 +35,17 @@ public class CodeInformationResponse implements CodeInfo {
         return codeInfo;
     }
     
-    public void setAdminInfo(AdminInfo adminInfo) {
+    public void setAdminInfo(QuestionnaireAdminInfo adminInfo) {
         this.adminInfo = adminInfo;
     }
-    public AdminInfo getAdminInfo() {
+    public QuestionnaireAdminInfo getAdminInfo() {
         return adminInfo;
     }
     
-    public void setOrganizationInfo(OrganizationInfo organizationInfo) {
+    public void setOrganizationInfo(QuestionnaireOrganizationInfo organizationInfo) {
         this.organizationInfo = organizationInfo;
     }
-    public OrganizationInfo getOrganizationInfo() {
+    public QuestionnaireOrganizationInfo getOrganizationInfo() {
         return organizationInfo;
     }
 
@@ -89,5 +89,15 @@ public class CodeInformationResponse implements CodeInfo {
     @Override
     public List<QuestionGroup> getQuestionGroups() {
         return new ArrayList<>(codeInfo.questionsGroup);
+    }
+
+    @Override
+    public String toString() {
+        return "CodeInformationResponse{" +
+                "codeInfo=" + codeInfo +
+                ", adminInfo=" + adminInfo +
+                ", organizationInfo=" + organizationInfo +
+                ", associationTime=" + associationTime +
+                '}';
     }
 }

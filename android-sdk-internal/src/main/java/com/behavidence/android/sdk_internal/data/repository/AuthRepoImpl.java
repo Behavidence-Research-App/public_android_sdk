@@ -11,7 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 
-public interface AuthRepoImpl {
+interface AuthRepoImpl {
 
     @POST("auth/anon/register")
     Call<AnonymousAuthResponse> createAnonProfile(@Header("x-api-key") String apiKey, @Body AnonymousAuthBody body);

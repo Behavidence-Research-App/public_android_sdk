@@ -5,7 +5,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.behavidence.android.sdk_internal.core.RoomDb.BehavidenceSDKInternalDb;
 import com.behavidence.android.sdk_internal.data.interfaces.JournalService;
 import com.behavidence.android.sdk_internal.data.model.Journal.JournalData;
 import com.behavidence.android.sdk_internal.data.room_model.Events.TimeZoneInfo;
@@ -91,15 +90,15 @@ class JournalClient_Impl extends ClientParent implements JournalClient {
                     .insert(new GeneralEntry(journal.getJournalText(), journal.getCreationTime(), GeneralEntry.UPLOADED));
     }
 
-    private void deleteAllJournals() {
+    public void deleteAllJournals() {
         database.journalsDao().deleteAllJournals();
     }
 
-    private Void uploadAllJournals() {
+    public Void uploadAllJournals() {
 
         int MAX_UPLOAD_SIZE = 100;
 
-        List<Journal> journals = loadUnUploadedJournalsASC();
+        final List<Journal> journals = loadUnUploadedJournalsASC();
         List<TimeZoneInfo> timeZoneInfos = _timeZoneClient.loadTimeZonesDES(200);
 
         if (journals.size() < 1)
@@ -109,11 +108,11 @@ class JournalClient_Impl extends ClientParent implements JournalClient {
         int trimEnd = Math.min(journals.size(), MAX_UPLOAD_SIZE);
 
         List<JournalData> journalData = new ArrayList<>();
-        journals = journals.subList(trimStart, trimEnd);
+        List<Journal> subJournals = journals.subList(trimStart, trimEnd);
 
         while (trimStart < trimEnd) {
 
-            for(Journal journal: journals){
+            for(Journal journal: subJournals){
                 journalData.add(new JournalData(
                         _timeZoneClient.getTimeZoneForTime(timeZoneInfos,journal.getCreationTime()).getTimeZoneId(),
                         journal.getCreationTime().toString(),
@@ -121,21 +120,35 @@ class JournalClient_Impl extends ClientParent implements JournalClient {
                 ));
             }
 
-            _service.postJournal(journalData, new BehavidenceClientCallback<Void>() {
-                @Override
-                public void onSuccess(Void response) {
+            if(_service.postJournalSync(journalData))
+                markUploaded(journals.subList(trimStart, trimEnd));
 
-                }
+//            _service.postJournal(journalData, new BehavidenceClientCallback<Void>() {
+//
+//                int start;
+//                int end;
+//
+//                @Override
+//                public void onSuccess(Void response) {
+//                    markUploaded(journals.subList(start, end));
+//                }
+//
+//                @Override
+//                public void onFailure(String message) {
+//
+//                }
+//
+//                public BehavidenceClientCallback<Void> init(int start, int end){
+//                    this.start = start;
+//                    this.end = end;
+//                    return this;
+//                }
+//
+//            }.init(trimStart, trimEnd));
 
-                @Override
-                public void onFailure(String message) {
-
-                }
-            });
-
-            markUploaded(journals);
             trimStart = trimEnd;
             trimEnd = Math.min(journals.size(), (trimEnd + MAX_UPLOAD_SIZE));
+            subJournals = journals.subList(trimStart, trimEnd);
         }
         return null;
     }
