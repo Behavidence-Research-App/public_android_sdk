@@ -173,6 +173,7 @@ class ServiceParent implements AuthSigninService {
                     public void onSuccess(AnonymousAuthResponse refreshResponse) {
                         if (refreshResponse == null) {
                             Log.e(BEHAVIDENCE_ERROR, "Failed to refresh authentication token. Please check internet connection.");
+                            callback.executeCallback(null);
                             return;
                         }
 
@@ -184,6 +185,7 @@ class ServiceParent implements AuthSigninService {
                     @Override
                     public void onFailure(Throwable t) {
                         Log.e(BEHAVIDENCE_ERROR, "Failed to refresh authentication token. Please check internet connection.");
+                        callback.executeCallback(null);
                     }
                 });
             }

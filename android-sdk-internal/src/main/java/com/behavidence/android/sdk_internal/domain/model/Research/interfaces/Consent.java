@@ -5,9 +5,17 @@ import androidx.annotation.Nullable;
 
 public interface Consent {
 
+    /**
+     *
+     * @return Consent Text in HTML format
+     */
     @NonNull
     String getHtmlText();
 
+    /**
+     *
+     * @return Consent Text
+     */
     @Nullable
     String getText();
 

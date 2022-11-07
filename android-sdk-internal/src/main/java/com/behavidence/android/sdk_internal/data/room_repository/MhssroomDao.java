@@ -37,7 +37,7 @@ public interface MhssroomDao {
     @Query("SELECT * FROM Mhssroom WHERE timestamp>=:start AND timestamp<=:end LIMIT 10000")
     List<Mhssroom> getMhss(long start, long end);
 
-    @Query("SELECT * FROM Mhssroom WHERE date>=:start AND timestamp<=:end LIMIT 10000")
+    @Query("SELECT * FROM Mhssroom WHERE date>=:start AND date<=:end LIMIT 10000")
     List<Mhssroom> getMhss(String start, String end);
 //
 

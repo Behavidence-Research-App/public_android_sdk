@@ -40,4 +40,13 @@ public class ZoneInfo {
     public void setChange(long change) {
         this.change = change;
     }
+
+    @Override
+    public String toString() {
+        return "ZoneInfo{" +
+                "id='" + id + '\'' +
+                ", offset=" + offset +
+                ", change=" + change +
+                '}';
+    }
 }

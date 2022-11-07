@@ -2,6 +2,7 @@ package com.behavidence.android.sdk_internal.data.repository;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.util.Log;
 
 import com.behavidence.android.sdk_internal.data.interfaces.MHSSService;
 import com.behavidence.android.sdk_internal.data.model.MHSS.MHSSResponse;

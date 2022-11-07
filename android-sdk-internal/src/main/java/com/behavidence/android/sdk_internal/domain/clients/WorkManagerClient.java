@@ -51,12 +51,18 @@ public class WorkManagerClient extends Worker {
     public Result doWork() {
 
         try {
+
+            Log.i("BehavidenceWorkManager", "Executed");
+
             _eventsClient.uploadAllSessions(getApplicationContext());
             _eventsClient.uploadAllApps();
             _journalClient.uploadAllJournals();
 
             return Result.success();
         }catch (Exception e){
+//            e.printStackTrace();
+            Log.i("BehavidenceWorkManager", "Exception -" + e.getLocalizedMessage());
+
             return Result.retry();
         }
 

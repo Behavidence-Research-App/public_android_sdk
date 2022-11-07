@@ -11,6 +11,7 @@ import com.behavidence.android.sdk_internal.data.model.Events.Session;
 import com.behavidence.android.sdk_internal.data.model.Events.SessionBody;
 import com.behavidence.android.sdk_internal.data.model.Events.SessionResponse;
 import com.behavidence.android.sdk_internal.data.model.Events.SessionWithZoneBody;
+import com.behavidence.android.sdk_internal.data.model.Events.SessionWithZoneBodyResponse;
 import com.behavidence.android.sdk_internal.data.model.Events.ZoneInfo;
 import com.behavidence.android.sdk_internal.data.model.Journal.JournalBody;
 import com.behavidence.android.sdk_internal.domain.clients.BehavidenceClientCallback;
@@ -92,9 +93,11 @@ class EventsService_Impl extends ServiceParent implements EventsService {
     }
 
     @Override
-    public SessionResponse postSessionSync(List<Session> sessions, List<ZoneInfo> zones) {
+    public SessionWithZoneBodyResponse postSessionSync(List<Session> sessions, List<ZoneInfo> zones) {
         if(loadAuthTokenSync()) {
             try {
+
+                SessionWithZoneBody zone = new SessionWithZoneBody(sessions, zones);
                 return client.postSession(apiKey, token, new SessionWithZoneBody(sessions, zones)).execute().body();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -106,15 +109,15 @@ class EventsService_Impl extends ServiceParent implements EventsService {
     }
 
     @Override
-    public void postSession(List<Session> sessions, List<ZoneInfo> zones, BehavidenceClientCallback<SessionResponse> callback) {
-        loadAuthToken(token -> client.postSession(apiKey, token, new SessionWithZoneBody(sessions, zones)).enqueue(new Callback<SessionResponse>() {
+    public void postSession(List<Session> sessions, List<ZoneInfo> zones, BehavidenceClientCallback<SessionWithZoneBodyResponse> callback) {
+        loadAuthToken(token -> client.postSession(apiKey, token, new SessionWithZoneBody(sessions, zones)).enqueue(new Callback<SessionWithZoneBodyResponse>() {
             @Override
-            public void onResponse(Call<SessionResponse> call, Response<SessionResponse> response) {
+            public void onResponse(Call<SessionWithZoneBodyResponse> call, Response<SessionWithZoneBodyResponse> response) {
                 callback.onSuccess(response.body());
             }
 
             @Override
-            public void onFailure(Call<SessionResponse> call, Throwable t) {
+            public void onFailure(Call<SessionWithZoneBodyResponse> call, Throwable t) {
                 callback.onFailure("Failed to submit Sessions");
             }
         }));

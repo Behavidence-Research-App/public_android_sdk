@@ -71,11 +71,6 @@ public class Questions implements ResearchQuestion {
     }
 
     @Override
-    public Boolean getMultipleSelect() {
-        return multiple;
-    }
-
-    @Override
     public void selectOptionIndex(@NonNull Integer index, boolean answer) {
         if(index >= options.size()){
             Log.e("BehavidenceError", "Invalid Index");

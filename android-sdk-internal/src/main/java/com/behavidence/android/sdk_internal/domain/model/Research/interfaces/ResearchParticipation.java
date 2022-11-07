@@ -4,6 +4,10 @@ import androidx.annotation.Nullable;
 
 public interface ResearchParticipation extends Participation {
 
+    /**
+     *
+     * @return Research Name
+     */
     @Nullable
     String getResearchName();
 

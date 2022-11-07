@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        BehavidenceClient.initialize(this)
+//        BehavidenceClient.initialize(this)
 
     }
 

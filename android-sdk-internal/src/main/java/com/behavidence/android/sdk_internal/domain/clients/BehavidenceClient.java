@@ -17,6 +17,10 @@ public class BehavidenceClient {
     private static MHSSClient mhssClient = null;
     private static TimeZoneClient_Impl timeZoneClient = null;
 
+    /**
+     * Initialize the Behavidence Client (Important before calling other functions)
+     * @param context
+     */
     public static void initialize(Context context){
 //        authClientImpl = new AuthClient_Impl(context);
         participationClient = new ParticipationClient_Impl(context);
@@ -35,6 +39,10 @@ public class BehavidenceClient {
 //        return authClientImpl;
 //    }
 
+    /**
+     * Related to Research and Association
+     * @return Participation Client
+     */
     public static ParticipationClient Participation(){
         if(participationClient == null)
             throw new NullPointerException("Client has not been initialized");
@@ -47,12 +55,20 @@ public class BehavidenceClient {
 //        return questionnaire;
 //    }
 
+    /**
+     * Related to Journals
+     * @return Journal Client
+     */
     public static JournalClient Journal(){
         if(journalClient == null)
             throw new NullPointerException("Client has not been initialized");
         return journalClient;
     }
 
+    /**
+     * Client for Similarity Score
+     * @return MHSS Client
+     */
     public static MHSSClient MHSS(){
         if(mhssClient == null)
             throw new NullPointerException("Client has not been initialized");

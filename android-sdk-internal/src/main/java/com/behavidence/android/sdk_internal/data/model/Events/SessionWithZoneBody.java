@@ -22,4 +22,12 @@ public class SessionWithZoneBody extends SessionBody{
     public void setZoneInfo(List<ZoneInfo> zoneInfo) {
         this.zoneInfo = zoneInfo;
     }
+
+    @Override
+    public String toString() {
+        return "SessionWithZoneBody{" +
+                "events=" + events +
+                ", zoneInfo=" + zoneInfo +
+                '}';
+    }
 }

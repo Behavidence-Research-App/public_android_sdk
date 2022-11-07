@@ -7,6 +7,7 @@ import com.behavidence.android.sdk_internal.data.model.Events.Session;
 import com.behavidence.android.sdk_internal.data.model.Events.SessionBody;
 import com.behavidence.android.sdk_internal.data.model.Events.SessionResponse;
 import com.behavidence.android.sdk_internal.data.model.Events.SessionWithZoneBody;
+import com.behavidence.android.sdk_internal.data.model.Events.SessionWithZoneBodyResponse;
 import com.behavidence.android.sdk_internal.data.model.Events.ZoneInfo;
 import com.behavidence.android.sdk_internal.domain.clients.BehavidenceCallback;
 import com.behavidence.android.sdk_internal.domain.clients.BehavidenceClientCallback;
@@ -24,6 +25,6 @@ public interface EventsClient {
 
     SessionResponse postSessionSync(List<Session> sessions);
 
-    SessionResponse postSessionSync(List<Session> sessions, List<ZoneInfo> zones);
+    SessionWithZoneBodyResponse postSessionSync(List<Session> sessions, List<ZoneInfo> zones);
 
 }

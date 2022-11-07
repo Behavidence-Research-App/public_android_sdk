@@ -75,4 +75,16 @@ public class Session {
     public void setEndUser(String endUser) {
         this.endUser = endUser;
     }
+
+    @Override
+    public String toString() {
+        return "Session{" +
+                "start=" + start +
+                ", end=" + end +
+                ", id='" + id + '\'' +
+                ", zone='" + zone + '\'' +
+                ", startUser='" + startUser + '\'' +
+                ", endUser='" + endUser + '\'' +
+                '}';
+    }
 }

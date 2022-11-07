@@ -231,7 +231,7 @@ class TestViewModel : ViewModel() {
                 )
 
                 var mhss = ""
-                BehavidenceClient.MHSS().getMhssInTimeRange(1656975794543, 1667475845064, object : BehavidenceCallback<List<Mhss>> {
+                BehavidenceClient.MHSS().getMhssInTimeRange(1656975794543L, 1667575845064L, object : BehavidenceCallback<List<Mhss>> {
                     override fun onSuccess(response: List<Mhss>?) {
                         if (response != null) {
                             for (item in response) {

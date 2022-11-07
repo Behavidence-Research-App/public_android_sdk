@@ -5,8 +5,17 @@ import androidx.annotation.Nullable;
 
 public interface Organization {
 
+    /**
+     *
+     * @return Organization Name
+     */
     @NonNull
     String getOrganizationName();
+
+    /**
+     *
+     * @return Organization Website
+     */
     @Nullable
     String getOrganizationWebsite();
 

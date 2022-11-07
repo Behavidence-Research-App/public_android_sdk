@@ -9,6 +9,7 @@ import com.behavidence.android.sdk_internal.data.model.Events.AppCategoryRespons
 import com.behavidence.android.sdk_internal.data.model.Events.AppId;
 import com.behavidence.android.sdk_internal.data.model.Events.Session;
 import com.behavidence.android.sdk_internal.data.model.Events.SessionResponse;
+import com.behavidence.android.sdk_internal.data.model.Events.SessionWithZoneBodyResponse;
 import com.behavidence.android.sdk_internal.data.model.Events.ZoneInfo;
 import com.behavidence.android.sdk_internal.data.room_model.Events.App;
 import com.behavidence.android.sdk_internal.data.room_model.Events.AppSession;
@@ -52,9 +53,8 @@ class EventsClient_Impl extends ClientParent implements EventsClient {
     }
 
     @Override
-    public SessionResponse postSessionSync(List<Session> sessions, List<ZoneInfo> zones) {
-        SessionResponse response = _service.postSessionSync(sessions, zones);
-        return response;
+    public SessionWithZoneBodyResponse postSessionSync(List<Session> sessions, List<ZoneInfo> zones) {
+        return _service.postSessionSync(sessions, zones);
     }
 
     private void refreshEvents() {
@@ -113,9 +113,9 @@ class EventsClient_Impl extends ClientParent implements EventsClient {
             Long lastTimeUpload = null;
 
             if (zoneInfos.size() > 0) {
-                SessionResponse response = postSessionSync(sessions, zoneInfos);
+                SessionWithZoneBodyResponse response = postSessionSync(sessions, zoneInfos);
                 if (response != null)
-                    lastTimeUpload = response.getLastTimeUploaded();
+                    lastTimeUpload = response.getResponse().getLastTimeUploaded();
             } else {
                 SessionResponse response = postSessionSync(sessions);
                 if (response != null)
