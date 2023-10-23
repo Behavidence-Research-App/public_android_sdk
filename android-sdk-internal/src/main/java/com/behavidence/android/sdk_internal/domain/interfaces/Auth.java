@@ -15,6 +15,5 @@ public interface Auth {
 
     void logout(@NonNull BehavidenceCallback<Boolean> callback);
 
-
-
+    String getUserId();
 }

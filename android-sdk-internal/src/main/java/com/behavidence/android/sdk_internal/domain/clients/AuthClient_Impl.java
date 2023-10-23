@@ -54,4 +54,11 @@ class AuthClient_Impl extends ClientParent implements Auth {
             }
         });
     }
+
+    @Override
+    public String getUserId() {
+        return _service.getUserId();
+    }
+
+
 }

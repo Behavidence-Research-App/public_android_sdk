@@ -25,6 +25,8 @@ class ServiceParent implements AuthSigninService {
     private static final String ACCESS_TOKEN_TAG = "accesstoken";
     private static final String PASSWORD_TAG = "password";
     private static final String USER_ID = "userid";
+
+    private static final String USER_HASH = "userHash";
     private static final String REFRESH_TOKEN_TAG = "refresh_token";
     private static final String REGISTERED_TAG = "registered";
     private static final String LOGIN_TYPE_TAG = "logintype";
@@ -101,6 +103,12 @@ class ServiceParent implements AuthSigninService {
     @Override
     public void authLogout(BehavidenceClientCallback<Boolean> callback) {
 
+        loadAuthToken(new BehavidenceRefreshCallback() {
+            @Override
+            public void executeCallback(String token) {
+            }
+        });
+
         loadAuthToken(token -> authService.logoutAuth(token, new BehavidenceResponseCallback<AuthLogoutResponse>() {
             @Override
             public void onSuccess(AuthLogoutResponse response) {
@@ -113,6 +121,11 @@ class ServiceParent implements AuthSigninService {
             }
         }));
 
+    }
+
+    @Override
+    public String getUserId() {
+        return sharedPreferences.getString(USER_HASH, "");
     }
 
 
@@ -205,13 +218,13 @@ class ServiceParent implements AuthSigninService {
 
     }
 
-
     private void saveAuth(AuthResponseData auth, String password) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();
 
         editor.putString(USER_ID, auth.getUserid());
         editor.putString(PASSWORD_TAG, password);
+        editor.putString(USER_HASH, auth.getUserHash());
 
         if (auth.getAccessToken() != null) {
             long tokenTTL = Calendar.getInstance().getTimeInMillis() + ((auth.getExpiry() - 120) * 1000);

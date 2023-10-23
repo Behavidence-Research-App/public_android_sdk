@@ -10,6 +10,9 @@ public class AuthResponseData{
     @SerializedName("accesstoken")
     private String accessToken;
 
+    @SerializedName("userhash")
+    private String userHash;
+
     @SerializedName("expiry")
     private Long expiry;
 
@@ -25,6 +28,22 @@ public class AuthResponseData{
 
     public String getAccessToken() {
         return accessToken;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserHash() {
+        return userHash;
+    }
+
+    public void setUserHash(String userHash) {
+        this.userHash = userHash;
     }
 
     public Long getExpiry() {

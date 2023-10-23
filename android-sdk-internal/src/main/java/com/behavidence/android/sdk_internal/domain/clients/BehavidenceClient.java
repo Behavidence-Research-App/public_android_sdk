@@ -10,7 +10,7 @@ import com.behavidence.android.sdk_internal.domain.interfaces.Questionnaire;
 
 public class BehavidenceClient {
 
-//    private static AuthClient_Impl authClientImpl = null;
+    private static AuthClient_Impl authClientImpl = null;
     private static ParticipationClient participationClient = null;
 //    private static Questionnaire questionnaire = null;
     private static JournalClient journalClient = null;
@@ -22,7 +22,7 @@ public class BehavidenceClient {
      * @param context
      */
     public static void initialize(Context context){
-//        authClientImpl = new AuthClient_Impl(context);
+        authClientImpl = new AuthClient_Impl(context);
         participationClient = new ParticipationClient_Impl(context);
 //        questionnaire = new ResearchQuestionnaireClient_Impl(context);
         journalClient = new JournalClient_Impl(context);
@@ -33,11 +33,11 @@ public class BehavidenceClient {
         timeZoneClient.logTimeZone();
     }
 
-//    public static Auth Auth(){
-//        if(authClientImpl == null)
-//            throw new NullPointerException("Client has not been initialized");
-//        return authClientImpl;
-//    }
+    public static Auth Auth(){
+        if(authClientImpl == null)
+            throw new NullPointerException("Client has not been initialized");
+        return authClientImpl;
+    }
 
     /**
      * Related to Research and Association

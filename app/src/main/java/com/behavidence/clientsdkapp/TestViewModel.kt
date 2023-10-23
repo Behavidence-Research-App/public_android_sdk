@@ -634,6 +634,10 @@ class TestViewModel : ViewModel() {
         }
     }
 
+    fun getUserId(){
+        state = state.copy(userId = BehavidenceClient.Auth().userId)
+    }
+
 }
 
 data class UIState(
@@ -641,6 +645,7 @@ data class UIState(
     val authRefresh: String = "",
     val journalUpload: String = "",
     val mhss: String = "",
+    val userId: String = "",
     val mhssHistory: String = "",
     val mhssDate: String = "",
     val mhssDateRange: String = "",

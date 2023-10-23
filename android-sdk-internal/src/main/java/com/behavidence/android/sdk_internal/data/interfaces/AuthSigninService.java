@@ -16,4 +16,6 @@ public interface AuthSigninService {
     Boolean authLogoutSync();
 
     void authLogout(BehavidenceClientCallback<Boolean> callback);
+
+    String getUserId();
 }

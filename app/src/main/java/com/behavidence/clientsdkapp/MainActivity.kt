@@ -53,6 +53,15 @@ class MainActivity : ComponentActivity() {
         val list = listOf(
             TestButton(
                 textRequired = false,
+                buttonTitle = "Get User Id",
+                testText = viewModel.state.userId,
+                researches = null,
+                associations = null
+            ) {
+                viewModel.getUserId()
+            },
+            TestButton(
+                textRequired = false,
                 buttonTitle = "Mhss History",
                 testText = viewModel.state.mhssHistory,
                 researches = null,
