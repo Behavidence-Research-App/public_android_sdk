@@ -1,5 +1,6 @@
 package com.behavidence.android.sdk_internal.data.model.Events;
 
+import com.google.gson.JsonElement;
 import com.google.gson.annotations.SerializedName;
 
 public class SessionResponse {
@@ -11,7 +12,7 @@ public class SessionResponse {
     private String message;
 
     @SerializedName("data")
-    private String data;
+    private JsonElement data;
 
     public long getLastTimeUploaded() {
         return lastTimeUploaded;
@@ -29,11 +30,11 @@ public class SessionResponse {
         this.message = message;
     }
 
-    public String getData() {
+    public JsonElement getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(JsonElement data) {
         this.data = data;
     }
 

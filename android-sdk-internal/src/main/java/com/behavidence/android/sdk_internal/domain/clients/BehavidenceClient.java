@@ -3,6 +3,7 @@ package com.behavidence.android.sdk_internal.domain.clients;
 import android.content.Context;
 
 import com.behavidence.android.sdk_internal.domain.interfaces.Auth;
+import com.behavidence.android.sdk_internal.domain.interfaces.DopaOneClient;
 import com.behavidence.android.sdk_internal.domain.interfaces.JournalClient;
 import com.behavidence.android.sdk_internal.domain.interfaces.MHSSClient;
 import com.behavidence.android.sdk_internal.domain.interfaces.ParticipationClient;
@@ -16,6 +17,7 @@ public class BehavidenceClient {
     private static JournalClient journalClient = null;
     private static MHSSClient mhssClient = null;
     private static TimeZoneClient_Impl timeZoneClient = null;
+    private static DopaOneClient dopaOneClient = null;
 
     /**
      * Initialize the Behavidence Client (Important before calling other functions)
@@ -28,11 +30,16 @@ public class BehavidenceClient {
         journalClient = new JournalClient_Impl(context);
         mhssClient = new MHSSClient_Impl(context);
         timeZoneClient = new TimeZoneClient_Impl(context);
+        dopaOneClient = new DopaOneClient_Impl(context);
         WorkManagerClient.initializeWorker(context);
 
         timeZoneClient.logTimeZone();
     }
 
+    /**
+     * Related to Anonymous Authetication
+     * @return Auth
+     */
     public static Auth Auth(){
         if(authClientImpl == null)
             throw new NullPointerException("Client has not been initialized");
@@ -74,5 +81,21 @@ public class BehavidenceClient {
             throw new NullPointerException("Client has not been initialized");
         return mhssClient;
     }
+
+    /**
+     * Client for Sensor Usage Data
+     * @return DopaOne Client
+     */
+    public static DopaOneClient DopaOne(){
+        if(dopaOneClient == null)
+            throw new NullPointerException("Client has not been initialized");
+        return dopaOneClient;
+    }
+
+//    public static void manualWork(Context context){
+//        if(dopaOneClient == null)
+//            throw new NullPointerException("Client has not been initialized");
+//        WorkManagerClient.manualWork(context);
+//    }
 
 }

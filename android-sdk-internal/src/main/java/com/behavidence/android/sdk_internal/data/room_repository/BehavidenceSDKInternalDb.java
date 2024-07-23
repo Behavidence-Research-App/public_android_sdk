@@ -7,6 +7,9 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.behavidence.android.sdk_internal.data.room_model.DopaOne.MedicationDataEntity;
+import com.behavidence.android.sdk_internal.data.room_model.DopaOne.RawSensorDataEntity;
+import com.behavidence.android.sdk_internal.data.room_model.DopaOne.SensorDataEntity;
 import com.behavidence.android.sdk_internal.data.room_model.Events.App;
 import com.behavidence.android.sdk_internal.data.room_model.Events.AppSession;
 import com.behavidence.android.sdk_internal.data.room_model.Events.TimeZoneInfo;
@@ -22,7 +25,7 @@ import com.behavidence.android.sdk_internal.data.room_model.Participation.Resear
 
 @Database(entities = {GeneralEntry.class, AppSession.class, App.class, TimeZoneInfo.class, Mhssroom.class,
         AdminRoom.class, AssociationRoom.class, OrganizationRoom.class, ResearchRoom.class,
-        CustomLabelEntity.class, LabelEntity.class}, version = 3)
+        CustomLabelEntity.class, LabelEntity.class, MedicationDataEntity.class, RawSensorDataEntity.class, SensorDataEntity.class}, version = 3)
 public abstract class BehavidenceSDKInternalDb extends RoomDatabase {
         public static final String DATABASE_NAME="behavidenceSDKDb";
 
@@ -51,5 +54,8 @@ public abstract class BehavidenceSDKInternalDb extends RoomDatabase {
         public abstract CustomLabelDao customLabelDao();
         public abstract LabelDao labelDao();
 
+        public abstract MedicationDataDao medicationDataDao();
+        public abstract RawSensorDataDao rawSensorDataDao();
+        public abstract SensorDataDao sensorDataDao();
 
 }

@@ -90,9 +90,9 @@ class EventsClient_Impl extends ClientParent implements EventsClient {
             ));
         }
 
-        boolean timeZonesUploaded = uploadPendingZones.size() > 0;
+        boolean timeZonesUploaded = !uploadPendingZones.isEmpty();
 
-        if (appSessions.size() < 1)
+        if (appSessions.isEmpty())
             return null;
 
         if (timeZonesUploaded) {
@@ -112,7 +112,7 @@ class EventsClient_Impl extends ClientParent implements EventsClient {
 
             Long lastTimeUpload = null;
 
-            if (zoneInfos.size() > 0) {
+            if (!zoneInfos.isEmpty()) {
                 SessionWithZoneBodyResponse response = postSessionSync(sessions, zoneInfos);
                 if (response != null)
                     lastTimeUpload = response.getResponse().getLastTimeUploaded();
@@ -122,7 +122,7 @@ class EventsClient_Impl extends ClientParent implements EventsClient {
                     lastTimeUpload = response.getLastTimeUploaded();
             }
 
-            if (lastTimeUpload != null) {
+            if (lastTimeUpload != null && lastTimeUpload != 0) {
 
                 appSessionsIO.setLastTimeSessionUpload(lastTimeUpload);
                 appSessions = appSessionsIO.getAppSessions(lastTimeUpload);

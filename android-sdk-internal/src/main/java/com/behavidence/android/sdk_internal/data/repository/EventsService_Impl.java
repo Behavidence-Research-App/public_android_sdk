@@ -15,6 +15,8 @@ import com.behavidence.android.sdk_internal.data.model.Events.SessionWithZoneBod
 import com.behavidence.android.sdk_internal.data.model.Events.ZoneInfo;
 import com.behavidence.android.sdk_internal.data.model.Journal.JournalBody;
 import com.behavidence.android.sdk_internal.domain.clients.BehavidenceClientCallback;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import java.util.List;
@@ -65,11 +67,24 @@ class EventsService_Impl extends ServiceParent implements EventsService {
 
     @Override
     public SessionResponse postSessionSync(List<Session> sessions) {
+        Log.i("EventService", "Session Sync Called - " + sessions);
         if(loadAuthTokenSync()) {
             try {
-                return client.postSession(apiKey, token, new SessionBody(sessions)).execute().body();
+                SessionResponse res = client.postSession(apiKey, token, new SessionBody(sessions)).execute().body();
+
+                if(res != null && res.getData() != null){
+                    JsonElement data = res.getData();
+                    if(data.isJsonObject()){
+                        JsonObject obj = data.getAsJsonObject();
+                        if(obj.has("lasttimeupload")){
+                            res.setLastTimeUploaded(obj.get("lasttimeupload").getAsLong());
+                        }
+                    }
+                }
+                Log.i("EventService", "Session Sync Success - " + res);
+                return res;
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e("EventService", "Session Sync Error - " + e.getMessage());
                 return null;
             }
         }
