@@ -65,9 +65,7 @@ dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
-
-    implementation 'com.github.Behavidence-Research-App:public_android_sdk:v1.0'
-
+    implementation 'com.github.Behavidence-Research-App:public_android_sdk:1.1'
 
 //    implementation 'androidx.security:security-crypto:1.1.0-alpha03'
 //    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
